@@ -7,32 +7,45 @@ package Hospital;
 
 /**
  *
- * @author andreslietti
- * This class contains the method to create the Hospital.   
+ * @author andreslietti This class contains the method to create the Hospital.
  */
 public class HospitalFactory {
-    
-    public Hospital getHospital (String sector){
-            if (sector == null) {
-                return null;
-            }
-            if (sector.equalsIgnoreCase("Laboratory")) {
-                return new Laboratory();
-            } else if (sector.equalsIgnoreCase("Offices")) {
-                return new Offices();
-            } else if (sector.equalsIgnoreCase("Ultrasound")) {
-                return new Ultrasound();
-            } else if (sector.equalsIgnoreCase("ImagingDiagnostic")) {
-                return new ImagingDiagnostic();
-            } else if (sector.equalsIgnoreCase("Internment")) {
-                return new Internment();
-            } else if (sector.equalsIgnoreCase("Therapy")) {
-                return new Therapy();
-            } else if (sector.equalsIgnoreCase("Maternity")) {
-                return new Maternity();
-            }
-        
-        return null;
-    
+
+    public Hospital getHospital(String sector) {
+        Hospital hospital = null;
+
+        switch (sector) {
+            case "Laboratory":
+                hospital = new Laboratory();
+                break;
+
+            case "Offices":
+                hospital = new Offices();
+                break;
+
+            case "Ultrasound":
+                hospital = new Ultrasound();
+                break;
+
+            case "ImagingDiagnostic":
+                hospital = new ImagingDiagnostic();
+                break;
+
+            case "Internment":
+                hospital = new Internment();
+                break;
+
+            case "Therapy":
+                hospital = new Therapy();
+                break;
+
+            case "Maternity":
+                hospital = new Maternity();
+                break;
+
+        }
+
+        return hospital;
+
     }
-}    
+}
