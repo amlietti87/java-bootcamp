@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ShoppingCartDiscount;
+
+import java.util.List;
+
+/**
+ *
+ * @author andreslietti
+ */
+public class CreditCard extends PaymentMethod{
+
+    @Override
+    public String getMethod() {
+        return "Credit Card";
+    }
+
+    @Override
+    public String getRequieremts() {
+        return "Please enter your Name and Credit Card Number";
+    }
+
+    
+    @Override
+    public double getDiscount(List<Product> listProducts) {
+        double total = 0;
+        for (int i = 0; i < listProducts.size(); i++) {
+            total += listProducts.get(i).getPrice();            
+        }
+        
+        total = total - (total * 0.1);
+        return total;
+        
+    }
+
+   
+
+    
+    
+}
