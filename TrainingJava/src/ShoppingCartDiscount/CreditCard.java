@@ -12,9 +12,10 @@ import java.util.List;
  * @author andreslietti
  */
 public class CreditCard extends PaymentMethod{
-
+    
+private static final double DISCOUNT = 0.1;
     @Override
-    public String getMethod() {
+    public String getPaymentMethod() {
         return "Credit Card";
     }
 
@@ -31,7 +32,7 @@ public class CreditCard extends PaymentMethod{
             total += listProducts.get(i).getPrice();            
         }
         
-        total = total - (total * 0.1);
+        total = total - (total * DISCOUNT);
         return total;
         
     }

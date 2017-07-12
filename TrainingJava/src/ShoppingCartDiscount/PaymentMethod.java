@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class PaymentMethod {
     
-    public abstract String getMethod();
+    public abstract String getPaymentMethod();
     public abstract String getRequieremts();
     public abstract double getDiscount(List<Product> listProducts);
     

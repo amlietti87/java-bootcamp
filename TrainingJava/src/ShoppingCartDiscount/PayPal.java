@@ -15,7 +15,7 @@ import java.util.List;
 public class PayPal extends PaymentMethod {
 
     @Override
-    public String getMethod() {
+    public String getPaymentMethod() {
         return "PayPal";
     }
 

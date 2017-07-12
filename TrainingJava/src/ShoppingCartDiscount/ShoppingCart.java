@@ -80,6 +80,10 @@ public class ShoppingCart {
                         case 5:
                             Shopping.add(p5);
                             break;
+                        default:
+                            
+                            break;
+                           
                     }
                     break;
             }
@@ -124,6 +128,9 @@ public class ShoppingCart {
                     System.out.println("Your total purchase now is");
                     System.out.println(method2.getDiscount(Shopping));
                     System.out.println(method2.getRequieremts());
+                    break;
+                default:
+                    System.out.println("The Payment Method is invalid");
                     break;
             }
 

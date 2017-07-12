@@ -12,9 +12,10 @@ import java.util.List;
  * @author andreslietti
  */
 public class Cash extends PaymentMethod {
-
+    
+private static final double DISCOUNT = 0.9;
     @Override
-    public String getMethod() {
+    public String getPaymentMethod() {
         return "Cash";
     }
 
@@ -25,7 +26,7 @@ public class Cash extends PaymentMethod {
 
     @Override
     public double getDiscount(List<Product> listProducts) {
-        double max = listProducts.get(0).getPrice(), total = 0;
+        double max = 0, total = 0;
         
         for (int i = 0; i < listProducts.size(); i++) {
             total += listProducts.get(i).getPrice();            
@@ -37,7 +38,7 @@ public class Cash extends PaymentMethod {
             }
         }
         
-        total = total - (max*0.9);
+        total = total - (max * DISCOUNT);
         return total;
     }
 
