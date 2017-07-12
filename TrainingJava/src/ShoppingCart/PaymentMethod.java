@@ -11,7 +11,7 @@ package ShoppingCart;
  */
 public abstract class PaymentMethod {
     
-    public abstract String getMethod();
+    public abstract String getPaymentMethod();
     public abstract String getRequieremts();
     
 }

@@ -26,6 +26,9 @@ public class PaymentMethodFactory {
             case "Cash":
                 paymentMethod = new Cash();
                 break;
+                
+            default:
+                return null;
                    
         }
         

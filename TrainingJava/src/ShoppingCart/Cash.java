@@ -12,7 +12,7 @@ package ShoppingCart;
 public class Cash extends PaymentMethod {
 
     @Override
-    public String getMethod() {
+    public String getPaymentMethod() {
         return "Cash";
     }
 

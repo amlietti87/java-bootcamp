@@ -20,7 +20,7 @@ public class Cart {
     
     public void showProducts(){
         for (int i = 0; i < listProducts.size(); i++) {
-            System.out.println("ID Product: " + (i + 1) + "\n" + "Name: " + listProducts.get(i).getName() + "\n" + "Price: " + listProducts.get(i).getPrice() + "\n" + "Quintity: " + listProducts.get(i).getQuantity() );
+            System.out.println("ID Product: " + (i + 1) + ", " + "Name: " + listProducts.get(i).getName() + ", " + "Price: " + listProducts.get(i).getPrice());
             
         }
     }

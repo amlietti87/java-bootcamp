@@ -12,7 +12,7 @@ package ShoppingCart;
 public class CreditCard extends PaymentMethod{
 
     @Override
-    public String getMethod() {
+    public String getPaymentMethod() {
         return "Credit Card";
     }
 

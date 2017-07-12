@@ -74,6 +74,9 @@ public class ShoppingCart {
                         case 5:
                             Shopping.add(p5);
                             break;
+                            
+                        default:
+                            break;
                     }
                     break;
             }
@@ -111,6 +114,9 @@ public class ShoppingCart {
                 case 3:
                     PaymentMethod method2 = paymentMethod.getMethod("Cash");
                     System.out.println(method2.getRequieremts());
+                    break;
+                default:
+                    System.out.println("The Payment Method is invalid");
                     break;
             }
 
