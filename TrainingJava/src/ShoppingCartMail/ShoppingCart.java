@@ -23,10 +23,14 @@ public class ShoppingCart {
         int sw = 0;
         PaymentMethodFactory paymentMethod = new PaymentMethodFactory();
         Cart listProducts = new Cart();
-        Cart Offers = new Cart();
+        Cart listOffers = new Cart();
+        Cart totalSell = new Cart();
         List<Product> Shopping = new ArrayList<>();
         Context context = new Context(new CounterTypePayment());
-        EmailSenderService sendmail = new EmailSenderService();
+        SuperProductCommand pc = new SuperProductCommand();
+        pc.addCommand(new SendMailService());
+        SendMailExecute me = new SendMailExecute();
+        
 
         //Product Load.
         Product p1 = new Product("Book", (float) 37.5, 3);
@@ -36,15 +40,13 @@ public class ShoppingCart {
         Product p5 = new Product("Case", (float) 23.5, 9);
 
         listProducts.addProducts(p1);
-        sendmail.sendEmail("New Product", "The Product" + p1.getName() + "was added");
+            Mail mailproduct = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Product", "The product " + p1.getName()+ "  has been added");
+            me.execute(pc, mailproduct);
         listProducts.addProducts(p2);
-        sendmail.sendEmail("New Product", "The Product" + p2.getName() + "was added");
         listProducts.addProducts(p3);
-        sendmail.sendEmail("New Product", "The Product" + p3.getName() + "was added");
         listProducts.addProducts(p4);
-        sendmail.sendEmail("New Product", "The Product" + p4.getName() + "was added");
         listProducts.addProducts(p5);
-        sendmail.sendEmail("New Product", "The Product" + p5.getName() + "was added");
+       
 
         // Offers Products Load.
         Product p6 = new Product("PS4", (float) 150.0, 3);
@@ -53,16 +55,14 @@ public class ShoppingCart {
         Product p9 = new Product("Backpack", (float) 40.0, 4);
         Product p10 = new Product("FIFA 17 PS4", (float) 25.5, 9);
 
-        Offers.addProducts(p6);
-        sendmail.sendEmail("New Offert", "The Product" + p6.getName() + "was added");
-        Offers.addProducts(p7);
-        sendmail.sendEmail("New Offert", "The Product" + p7.getName() + "was added");
-        Offers.addProducts(p8);
-        sendmail.sendEmail("New Offert", "The Product" + p8.getName() + "was added");
-        Offers.addProducts(p9);
-        sendmail.sendEmail("New Offert", "The Product" + p9.getName() + "was added");
-        Offers.addProducts(p10);
-        sendmail.sendEmail("New Offert", "The Product" + p10.getName() + "was added");
+        listOffers.addOffers(p6);
+            Mail mailoffert = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Offert", "The offert " + p6.getName()+ "  has been added");
+            me.execute(pc, mailoffert);
+        listOffers.addOffers(p7);
+        listOffers.addOffers(p8);
+        listOffers.addOffers(p9);
+        listOffers.addOffers(p10);
+       
 
         while (op != 0) {
             // Show all products
@@ -71,7 +71,7 @@ public class ShoppingCart {
 
             // Show all products in offer
             System.out.println("Amazon Prime Day Offers: ");
-            Offers.showProducts();
+            listOffers.showOffers();
 
             // Menu
             System.out.println("Menu:");
@@ -141,9 +141,7 @@ public class ShoppingCart {
         }
 
         //Show the total of purchase without discount.
-        for (int i = 0; i < Shopping.size(); i++) {
-            total += Shopping.get(i).getPrice();
-        }
+        totalSell.getTotal(Shopping);
 
         // Select the Payment Method
         System.out.println("Please Select your Payment Method");
@@ -188,7 +186,8 @@ public class ShoppingCart {
 
         }
         
-        sendmail.sendEmail("New Sell", "A purchase has been made");
+        Mail mailsell = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Product", "A new sells has been made");
+        me.execute(pc, mailsell);
 
     }
 
