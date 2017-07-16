@@ -12,32 +12,32 @@ import java.util.List;
  *
  * @author andreslietti
  */
-public class CounterTypePayment implements Strategy {
-    
+public class CounterTypePayment implements StrategyTypePayment {
+
     List <String> Counter = new ArrayList<String>();
     @Override
-    
-    public List<String> Counter (String paymentMethod) {
-        
+
+    public List<String> counter (String paymentMethod) {
+
         switch(paymentMethod){
-            
+
             case "Credit Card":
                 Counter.add(paymentMethod);
                 break;
-            
+
             case "PayPal":
                 Counter.add(paymentMethod);
                 break;
-                
+
             case "Cash":
                 Counter.add(paymentMethod);
                 break;
-                
+
             default:
                 break;
-            
+
         }
         return Counter;
     }
-    
+
 }
