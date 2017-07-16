@@ -5,6 +5,10 @@
  */
 package ShoppingCartCounter;
 
+/**
+ *
+ * @author andreslietti
+ */
 public class Product {
 
     private String name;

@@ -25,7 +25,7 @@ public class ShoppingCart {
         Cart listProducts = new Cart();
         Cart Offers = new Cart();
         List<Product> Shopping = new ArrayList<>();
-        ContextTypePayment contextTP = new ContextTypePayment(new CounterTypePayment());
+        ContextTypePayment context = new ContextTypePayment(new CounterTypePayment());
 
         //Product Load.
         Product p1 = new Product("Book", (float) 37.5, 3);
@@ -145,7 +145,7 @@ public class ShoppingCart {
         switch (op) {
             case 1:
                 PaymentMethod method = paymentMethod.getMethod("Credit Card");
-                contextTP.executeStrategy("Credit Card");
+                context.executeStrategy("Credit Card");
                 System.out.println("You have a 10% in your total purchase!");
                 System.out.println("Your total purchase now is");
                 System.out.println(method.getDiscount(Shopping));
@@ -153,7 +153,7 @@ public class ShoppingCart {
                 break;
             case 2:
                 PaymentMethod method1 = paymentMethod.getMethod("PayPal");
-                contextTP.executeStrategy("PayPal");
+                context.executeStrategy("PayPal");
                 System.out.println("The cheapest item in your purchase is free!!");
                 System.out.println("Your total purchase now is");
                 System.out.println(method1.getDiscount(Shopping));
@@ -161,7 +161,7 @@ public class ShoppingCart {
                 break;
             case 3:
                 PaymentMethod method2 = paymentMethod.getMethod("Cash");
-                contextTP.executeStrategy("Cash");
+                context.executeStrategy("Cash");
                 System.out.println("You have a 90% in your most expensive item!");
                 System.out.println("Your total purchase now is");
                 System.out.println(method2.getDiscount(Shopping));
@@ -173,8 +173,8 @@ public class ShoppingCart {
         }
 
         //Show all payment methods.
-        for (int i = 0; i < contextTP.executeStrategy(" ").size(); i++) {
-            System.out.println("Payment Method: " + contextTP.executeStrategy(" ").get(i));
+        for (int i = 0; i < context.executeStrategy(" ").size(); i++) {
+            System.out.println("Payment Method: " + context.executeStrategy(" ").get(i));
 
         }
 

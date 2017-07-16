@@ -12,6 +12,7 @@ package ShoppingCartCounter;
 public class PaymentMethodFactory {
 
     public PaymentMethod getMethod (String method){
+        
         PaymentMethod paymentMethod = null;
 
         switch (method){

@@ -5,6 +5,10 @@
  */
 package ShoppingCartCounter;
 
+/**
+ *
+ * @author andreslietti
+ */
 
 import java.util.ArrayList;
 import java.util.List;

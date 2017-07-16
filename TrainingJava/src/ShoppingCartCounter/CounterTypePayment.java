@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CounterTypePayment implements StrategyTypePayment {
 
-    List <String> CounterTP = new ArrayList<String>();
+    List <String> Counter = new ArrayList<String>();
     @Override
 
     public List<String> counter (String paymentMethod) {
@@ -22,22 +22,22 @@ public class CounterTypePayment implements StrategyTypePayment {
         switch(paymentMethod){
 
             case "Credit Card":
-                CounterTP.add(paymentMethod);
+                Counter.add(paymentMethod);
                 break;
 
             case "PayPal":
-                CounterTP.add(paymentMethod);
+                Counter.add(paymentMethod);
                 break;
 
             case "Cash":
-                CounterTP.add(paymentMethod);
+                Counter.add(paymentMethod);
                 break;
 
             default:
                 break;
 
         }
-        return CounterTP;
+        return Counter;
     }
 
 }

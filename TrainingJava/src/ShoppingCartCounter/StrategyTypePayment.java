@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface StrategyTypePayment {
 
-    public List<String> counter (String paymentMethod);
+    public List <String> counter (String paymentMethod);
 
 }
 
