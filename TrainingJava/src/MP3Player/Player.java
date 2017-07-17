@@ -20,31 +20,31 @@ public class Player {
         player = new BasicPlayer();
     }
 
-    public void Play() throws Exception {
+    public void play() throws Exception {
         player.play();
     }
 
-    public void OpenFile(String ruta) throws Exception {
+    public void openFile(String ruta) throws Exception {
         player.open(new File(ruta));
     }
 
-    public void Pause() throws Exception {
+    public void pause() throws Exception {
         player.pause();
     }
 
-    public void Resume() throws Exception {
+    public void resume() throws Exception {
         player.resume();
     }
 
-    public void Stop() throws Exception {
+    public void stop() throws Exception {
         player.stop();
     }
 
     public static void main(String args[]) {
         try {
             Player my_player = new Player();
-            my_player.OpenFile("c:/mi_archivo_de_musica.mp3");
-            my_player.Play();
+            my_player.openFile("c:/mi_archivo_de_musica.mp3");
+            my_player.play();
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
