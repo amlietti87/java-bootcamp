@@ -11,8 +11,8 @@ import java.util.List;
  *
  * @author andreslietti
  */
-public interface Strategy {
-    
-    public List<String> Counter(String paymentMethod);
-    
+public interface StrategyTypePayment {
+
+    public List <String> counter (String paymentMethod);
+
 }

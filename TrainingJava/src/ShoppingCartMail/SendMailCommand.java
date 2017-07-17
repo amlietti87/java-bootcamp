@@ -9,9 +9,16 @@ package ShoppingCartMail;
  *
  * @author andreslietti
  */
-public class SendMailExecute {
+public class SendMailCommand implements MailCommand {
     
-    public void execute(ProductCommand sendmail, Mail mail){
+    SendMailService sendmail;
+    
+    public SendMailCommand (SendMailService sendmail){
+        this.sendmail = sendmail;
+    }
+
+    @Override
+    public void execute(Mail mail) {
         sendmail.Execute(mail);
     }
     

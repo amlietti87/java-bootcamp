@@ -9,8 +9,8 @@ package ShoppingCartMail;
  *
  * @author andreslietti
  */
-public interface ProductCommand {
-      
-  public abstract void Execute(Mail mail);
-  
+public interface MailCommand {
+    
+    public void execute(Mail mail);
+    
 }

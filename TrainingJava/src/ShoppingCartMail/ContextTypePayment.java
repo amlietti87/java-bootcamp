@@ -11,14 +11,14 @@ import java.util.List;
  *
  * @author andreslietti
  */
-public class Context {
-    private Strategy strategy;
-    
-    public Context (Strategy strategy){
-        this.strategy = strategy;
+public class ContextTypePayment {
+    private StrategyTypePayment strategy;
+
+    public ContextTypePayment (StrategyTypePayment strategyTP){
+        this.strategy = strategyTP;
     }
-    
+
     public List<String> executeStrategy(String paymentMethod){
-        return strategy.Counter(paymentMethod);
+        return strategy.counter(paymentMethod);
     }
 }

@@ -26,10 +26,12 @@ public class ShoppingCart {
         Cart listOffers = new Cart();
         Cart totalSell = new Cart();
         List<Product> Shopping = new ArrayList<>();
-        Context context = new Context(new CounterTypePayment());
-        SuperProductCommand pc = new SuperProductCommand();
-        pc.addCommand(new SendMailService());
-        SendMailExecute me = new SendMailExecute();
+        ContextTypePayment context = new ContextTypePayment(new CounterTypePayment());
+        SendMailService sendmail = new SendMailService();
+        Mail mailproduct;
+        Mail mailoffert;
+        MailCommand mailcommand = new SendMailCommand(sendmail);
+        MailInvoker mailInvoker = new MailInvoker(mailcommand);
         
 
         //Product Load.
@@ -40,8 +42,8 @@ public class ShoppingCart {
         Product p5 = new Product("Case", (float) 23.5, 9);
 
         listProducts.addProducts(p1);
-            Mail mailproduct = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Product", "The product " + p1.getName()+ "  has been added");
-            me.execute(pc, mailproduct);
+            mailproduct = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Product", "The product " + p1.getName()+ "  has been added");
+            mailInvoker.invoke(mailproduct);
         listProducts.addProducts(p2);
         listProducts.addProducts(p3);
         listProducts.addProducts(p4);
@@ -56,8 +58,8 @@ public class ShoppingCart {
         Product p10 = new Product("FIFA 17 PS4", (float) 25.5, 9);
 
         listOffers.addOffers(p6);
-            Mail mailoffert = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Offert", "The offert " + p6.getName()+ "  has been added");
-            me.execute(pc, mailoffert);
+            mailoffert = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Offert", "The offert " + p6.getName()+ "  has been added");
+            mailInvoker.invoke(mailoffert);
         listOffers.addOffers(p7);
         listOffers.addOffers(p8);
         listOffers.addOffers(p9);
@@ -187,7 +189,7 @@ public class ShoppingCart {
         }
         
         Mail mailsell = new Mail("manager@shoppingcart.com", "sells@shoppingcart.com", "New Product", "A new sells has been made");
-        me.execute(pc, mailsell);
+        mailInvoker.invoke(mailsell);
 
     }
 

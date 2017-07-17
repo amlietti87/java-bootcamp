@@ -9,9 +9,9 @@ package ShoppingCartMail;
  *
  * @author andreslietti
  */
-public class SendMailService implements ProductCommand {
+public class SendMailService {
     
-    @Override
+    
     public void Execute(Mail mail) {
         System.out.println("Sending mail to: " + mail.getMailDestination() + "\n" +
                            "from: " + mail.getMailOrigin() + "\n" +
