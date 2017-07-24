@@ -8,18 +8,16 @@ package serviceimpl;
 import java.util.List;
 import model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 import service.ContactService;
 
 /**
  *
  * @author andreslietti
  */
-@Service
+
 public class ContactServiceImpl implements ContactService{
 
-    @Autowired
+    @Autowired (required = true)
     private ContactService cs;
 
     public void create(Contact c) {

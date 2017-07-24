@@ -7,13 +7,13 @@ package service;
 
 import java.util.List;
 import model.Person;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author andreslietti
  */
-@Repository
+@Service
 public interface PersonService {
     
     public void create (Person p);

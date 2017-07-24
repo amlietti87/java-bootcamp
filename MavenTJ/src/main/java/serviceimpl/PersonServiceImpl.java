@@ -9,9 +9,6 @@ package serviceimpl;
 import java.util.List;
 import model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import service.PersonService;
 
 
@@ -20,10 +17,10 @@ import service.PersonService;
  *
  * @author andreslietti
  */
-@Service
+
 public class PersonServiceImpl implements PersonService{
     
-    @Autowired
+    @Autowired (required = true)
     private PersonService ps;
 
    

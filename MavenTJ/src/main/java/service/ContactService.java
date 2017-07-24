@@ -7,13 +7,13 @@ package service;
 
 import java.util.List;
 import model.Contact;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author andreslietti
  */
-@Repository
+@Service
 public interface ContactService{
     
     public void create(Contact c);
