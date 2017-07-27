@@ -6,6 +6,7 @@
 package serviceimpl;
 
 
+import daos.PersonDao;
 import java.util.List;
 import model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,17 @@ import service.PersonService;
 public class PersonServiceImpl implements PersonService{
     
     @Autowired (required = true)
-    private PersonService ps;
+    private PersonDao ps;
 
    
    
     public void create (Person p){
-        ps.create(p);
+        ps.add(p);
     }
     
     
     public List FindByName(String name){ 
-        return ps.FindByName(name);
+        return ps.findByName(name);
         
     }
 }

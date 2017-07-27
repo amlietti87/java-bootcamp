@@ -23,12 +23,12 @@ import serviceimpl.PersonServiceImpl;
 public class AppConfig {
     
     @Bean
-    public ContactServiceImpl getContactService() {
+    public ContactService getContactService() {
         return new ContactServiceImpl();
     }
     
     @Bean
-    public PersonServiceImpl getPersonService() {
+    public PersonService getPersonService() {
         return new PersonServiceImpl();
     }
     

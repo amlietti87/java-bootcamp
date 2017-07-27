@@ -5,6 +5,7 @@
  */
 package serviceimpl;
 
+import daos.ContactDao;
 import java.util.List;
 import model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ import service.ContactService;
 public class ContactServiceImpl implements ContactService{
 
     @Autowired (required = true)
-    private ContactService cs;
+    private ContactDao cs;
 
     public void create(Contact c) {
-        cs.create(c);
+        cs.add(c);
     }
 
     public List<Contact> FindByName(String name) {
-        return cs.FindByName(name);
+        return cs.findByName(name);
     }
 
    

@@ -24,8 +24,8 @@ public class App
         ApplicationContext ac = new AnnotationConfigApplicationContext(config.AppConfig.class);
         ApplicationContext ac1 = new AnnotationConfigApplicationContext(config.AppConfig.class);
       
-      PersonServiceImpl ps = (PersonServiceImpl)  ac.getBean(PersonService.class);
-      ContactServiceImpl cs = (ContactServiceImpl)  ac1.getBean(ContactService.class);  
+      PersonService ps =   ac.getBean(PersonService.class);
+      ContactService cs =   ac1.getBean(ContactService.class);  
       
       Person p = new Person();
       System.out.println("Please enter your name: ");
