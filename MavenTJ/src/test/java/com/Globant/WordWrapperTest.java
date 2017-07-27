@@ -16,30 +16,15 @@ import org.junit.Test;
 public class WordWrapperTest {
     
     @Test
-    public void noWrap(){
+    public void wrapWord(){
         
         assertEquals("Hello this is a test from wrap word program", WordWrapper.wrap("Hello this is a test from wrap word program",60));
-        
-    }
-    
-    @Test
-    public void wrapSingleWord(){
         assertEquals("Excel\nent", WordWrapper.wrap("Excelent", 5));
-        
-    }
-    
-    @Test
-    public void wrapTwoWordsSpaceBeforeBreak(){
         assertEquals("Hello\nWord!", WordWrapper.wrap("Hello Word!", 7));
-        
-    }
-    
-    @Test
-    public void wrapTwoWordsSpaceAfterBreak(){
-       // assertEquals("word\nword", WordWrapper.wrap("word word", 4));
         assertEquals("ab\ncd\nef", WordWrapper.wrap("ab cd ef", 3));
         
     }
+    
        
             
 }
