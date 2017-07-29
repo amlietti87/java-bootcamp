@@ -12,13 +12,8 @@ package com.Globant;
 class RecentFileList<T> {
 
     private Node first;
-    private final int listLong = 2;
+    private final int maxLong = 5;
     private int count = 0;
-    private RecentFileList<T> list;
-
-    public void RecentFileList() {
-        list = new RecentFileList();
-    }
     
     public int size() {
         Node node = first;
@@ -29,22 +24,26 @@ class RecentFileList<T> {
         return count;
     }
 
-    void add(T file) {
-        if (list.size() < listLong) {
+    void addFirst(T file, int listLong) {
+        if (listLong <= maxLong) {
             if (first == null) {
-            first = new Node(file);
-            list.add(file);
+                first = new Node(file);
+                
+            } else {
+                if (!existFile(file)) {
+                    Node node = new Node(file);
+                    node.next = first;
+                    first = node;
+                } else {
+                    deleteFile(file);
+                    addFirst(file, (listLong - 1));
+                    
+                }
+            }
         } else {
-            Node node = new Node(file);
-            node.next = first;
-            first = node;
-            list.add(file);
+            removeLast();
+            addFirst(file, (listLong - 1));
         }
-        } else {
-            list.removeLast(listLong);
-            list.add(file);
-        }
-        
 
     }
 
@@ -60,20 +59,45 @@ class RecentFileList<T> {
         return node.file;
     }
 
-    public T removeLast(int index) {
+    public void removeLast() {
         Node node = first;
-        Node prev = null;
-        while (index > 0) {
-            index--;
-            prev = node;
+        Node t = node;
+        if (first.next == null) {
+            node = null;
+        }
+        while (node.next != null) {
+            t = node;
             node = node.next;
         }
-        if (prev == null) {
-            first = node.next;
-        } else {
-            prev.next = node.next;
+        t.next = null;
+    }
+
+    public boolean existFile(T file) {
+        Node aux = first;
+        boolean exist = false;
+        do {
+            if (file == aux.file) {
+                exist = true;
+            } else {
+                aux = aux.next;
+            }
+        } while (aux != null && exist != true);
+
+        return exist;
+    }
+
+    public void deleteFile(T file) {
+        Node node = first;
+        Node t = node;
+        if (file == node.file) {
+            node = null;
         }
-        return node.file;
+        while (file != node.file) {
+            t = node;
+            node = node.next;
+        }
+        t.next = node.next;
+        node = null;
     }
 
     private class Node {

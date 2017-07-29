@@ -16,6 +16,7 @@ import org.junit.Test;
 public class RecentFileListTest {
     
     private RecentFileList<String> rflist;
+    private int listLong;
     
     @Before
     public void setUp(){
@@ -29,7 +30,7 @@ public class RecentFileListTest {
     
     @Test
     public void sizeAddOneElement(){
-        rflist.add("a");
+        rflist.addFirst("a",listLong);
         assertEquals(1, rflist.size());
         assertEquals("a", rflist.get(0));
     }
@@ -43,37 +44,60 @@ public class RecentFileListTest {
 
     @Test
     public void sizeAddSecondElement(){
-        givenAListContaining("a","b","c");
+        givenAListContaining("a","b");
         assertEquals(2, rflist.size());
     }
     
     @Test
+    public void addMoreThanMaxLong(){
+        givenAListContaining("a","b","c","d","e","f");
+        assertEquals(5, rflist.size());
+    }
+    
+    @Test
+    public void addSameFile(){
+        givenAListContaining("a","g","h","a","u");
+        assertEquals(4, rflist.size());
+        assertEquals("a", rflist.get(1));
+    }
+    
+    @Test
     public void getTwoElements(){
-        givenAListContaining("c","b");
-        String result = rflist.get(0);
-        assertEquals("c", result);
+        givenAListContaining("b","c");
+        String result = rflist.get(1);
+        assertEquals("b", result);
     }
 
     private void givenAListContaining(String... elements) {
+        listLong = 0;
         for (String s : elements){
-            System.out.println(s);
-            rflist.add(s);
+            listLong ++;
+            rflist.addFirst(s,listLong);
         }
     }
     
     @Test 
     public void removeLastElement(){
-        int lastElement = rflist.size() - 1;
         givenAListContaining("a","b");
-        rflist.removeLast(lastElement);
+        rflist.removeLast();
         assertEquals(1, rflist.size());
-        assertEquals("a", rflist.get(0));
+        assertEquals("b", rflist.get(0));
         
     }
     
     @Test
     public void findElement(){
+        givenAListContaining("a","b");
+        rflist.existFile("c");
+        assertEquals(false, rflist.existFile("c"));
         
+    }
+    
+    @Test
+    public void sort(){
+        givenAListContaining("a","b");
+        rflist.deleteFile("a");
+        assertEquals(1, rflist.size());
     }
     
 }
