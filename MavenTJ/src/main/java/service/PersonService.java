@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
 public interface PersonService {
     
     public void create (Person p);
-    public List<Person> FindByName (String name);
+    public List <Person> FindByName (String name);
     
 }

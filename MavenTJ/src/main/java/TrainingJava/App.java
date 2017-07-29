@@ -39,23 +39,22 @@ public class App
       p.setDni(pdni);
       ps.create(p);
       
-      List<Person> list = ps.FindByName(pname);
-        System.out.println(pname);
-        System.out.println(ps.FindByName(pname));
+      List <Person> list = ps.FindByName(pname);
+        
       
       Contact c = new Contact();
       System.out.println("Please enter your contact name: ");
       String cname = sc.nextLine();
-      p.setName(cname);
+      c.setName(cname);
       System.out.println("Please enter your contact lastname: ");
       String clastname = sc.nextLine();
-      p.setLastName(clastname);
+      c.setLastname(clastname);
       System.out.println("Please enter your contact phone: ");
       String cphone = sc.nextLine();
-      p.setDni(cphone);
+      c.setPhone(cphone);
       System.out.println("Please enter your contact mail: ");
       String cmail = sc.nextLine();
-      p.setDni(cmail);
+      c.setMail(cmail);
       cs.create(c);
       
       list.get(0).getContacts().add(c);

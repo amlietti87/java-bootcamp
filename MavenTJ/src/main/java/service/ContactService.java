@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
 public interface ContactService{
     
     public void create(Contact c);
-    public List <Contact> FindByName(String name);
+    
     
 }

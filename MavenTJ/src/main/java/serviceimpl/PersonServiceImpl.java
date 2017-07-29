@@ -6,10 +6,9 @@
 package serviceimpl;
 
 
-import daos.PersonDao;
+import java.util.ArrayList;
 import java.util.List;
 import model.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import service.PersonService;
 
 
@@ -21,8 +20,7 @@ import service.PersonService;
 
 public class PersonServiceImpl implements PersonService{
     
-    @Autowired (required = true)
-    private PersonDao ps;
+    private List <Person> ps = new ArrayList();
 
    
    
@@ -32,7 +30,13 @@ public class PersonServiceImpl implements PersonService{
     
     
     public List FindByName(String name){ 
-        return ps.findByName(name);
+        
+        for (int i = 0; i < ps.size(); i++) {
+            if (name.equals(ps.get(i).getName())) {
+                return ps;
+            }
+        }
+        return null;
         
     }
 }
