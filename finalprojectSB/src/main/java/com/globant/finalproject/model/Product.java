@@ -15,27 +15,27 @@ public class Product {
     private Long id;
 
     @Column(name = "product_name")
-    public String product_Name;
+    public String productName;
 
     @Column(name = "product_descrption")
-    public String product_Description;
+    public String productDescription;
 
     @Column (name = "product_price")
-    public double product_price;
+    public double productPrice;
 
     @ManyToMany
     @JoinTable(name = "products_category",
-            joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"))
     private Set<Category> category;
 
 
     // Constructors
 
-    public Product(String product_Name, String product_Description, double product_price) {
-        this.product_Name = product_Name;
-        this.product_Description = product_Description;
-        this.product_price = product_price;
+    public Product(String productName, String productDescription, double productPrice) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.productPrice = productPrice;
     }
 
     public Product() {
@@ -44,28 +44,28 @@ public class Product {
 
     //Getters and Setters
 
-    public String getProduct_Name() {
-        return product_Name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_Name(String product_Name) {
-        this.product_Name = product_Name;
+    public void setProduct_Name(String productName) {
+        this.productName = productName;
     }
 
-    public String getProduct_Description() {
-        return product_Description;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setProduct_Description(String product_Description) {
-        this.product_Description = product_Description;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public double getProduct_price() {
-        return product_price;
+    public double getProductPrice() {
+        return productPrice;
     }
 
-    public void setProduct_price(double product_price) {
-        this.product_price = product_price;
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 
     public Long getId() {

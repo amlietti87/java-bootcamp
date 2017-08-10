@@ -13,76 +13,35 @@ public class User {
     private Long id;
 
     @Column(name = "user_name")
-    public String user_name;
+    public String userName;
 
     @Column(name = "user_lastname")
-    public String user_lastname;
+    public String userLastname;
 
     @Column(name = "user_dni")
-    public String user_dni;
+    public String userDni;
 
     @Column(name = "user_pass")
-    public String user_pass;
+    public String userPass;
 
     @Column(name = "user_nick")
-    public String user_nick;
+    public String userNick;
 
     //Constructors
 
-    public User(String user_name, String user_lastname, String user_dni, String user_pass, String user_nick) {
-        this.user_name = user_name;
-        this.user_lastname = user_lastname;
-        this.user_dni = user_dni;
-        this.user_pass = user_pass;
-        this.user_nick = user_nick;
+    public User() {
+        // JpaOnly
     }
 
-    public User() {
-
-        //Jpa Only.
+    public User(String userName, String userLastname, String userDni, String userPass, String userNick) {
+        this.userName = userName;
+        this.userLastname = userLastname;
+        this.userDni = userDni;
+        this.userPass = userPass;
+        this.userNick = userNick;
     }
 
     //Getters and Setters
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public String getUser_lastname() {
-        return user_lastname;
-    }
-
-    public void setUser_lastname(String user_lastname) {
-        this.user_lastname = user_lastname;
-    }
-
-    public String getUser_dni() {
-        return user_dni;
-    }
-
-    public void setUser_dni(String user_dni) {
-        this.user_dni = user_dni;
-    }
-
-    public String getUser_pass() {
-        return user_pass;
-    }
-
-    public void setUser_pass(String user_pass) {
-        this.user_pass = user_pass;
-    }
-
-    public String getUser_nick() {
-        return user_nick;
-    }
-
-    public void setUser_nick(String user_nick) {
-        this.user_nick = user_nick;
-    }
 
     public Long getId() {
         return id;
@@ -90,6 +49,46 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserLastname() {
+        return userLastname;
+    }
+
+    public void setUserLastname(String userLastname) {
+        this.userLastname = userLastname;
+    }
+
+    public String getUserDni() {
+        return userDni;
+    }
+
+    public void setUserDni(String userDni) {
+        this.userDni = userDni;
+    }
+
+    public String getUserPass() {
+        return userPass;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
+    public String getUserNick() {
+        return userNick;
+    }
+
+    public void setUserNick(String userNick) {
+        this.userNick = userNick;
     }
 }
 

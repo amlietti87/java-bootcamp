@@ -16,8 +16,8 @@ public interface ProductService {
 
     Product getProductById (final Long id);
 
-    List<Product> findByProduct_name(final String product_name);
+    List<Product> findByProductName(final String productName);
 
-    List<Product> findByProductsByCategory(final String category_name);
+    //List<Product> findByProductsByCategoryName(final String categoryName);
 
 }

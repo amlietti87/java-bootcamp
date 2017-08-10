@@ -13,7 +13,7 @@ public class Item {
     private Long id;
 
     @Column(name = "item_quantity")
-    public int item_quantity;
+    public int itemQuantity;
 
     @OneToOne
     private Product product;
@@ -21,8 +21,8 @@ public class Item {
     //Contructors
 
 
-    public Item(int item_quantity, Product product) {
-        this.item_quantity = item_quantity;
+    public Item(int itemQuantityuantity, Product product) {
+        this.itemQuantity = itemQuantity;
         this.product = product;
     }
 
@@ -32,12 +32,12 @@ public class Item {
 
     //Getters and Setters.
 
-    public int getItem_quantity() {
-        return item_quantity;
+    public int getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setItem_quantity(int item_quantity) {
-        this.item_quantity = item_quantity;
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
     public Product getProduct() {

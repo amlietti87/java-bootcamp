@@ -14,17 +14,17 @@ public class Category {
     private Long id;
 
     @Column(name = "category_name")
-    public String category_name;
+    public String categoryName;
 
     @Column(name = "category_description")
-    public String category_description;
+    public String categoryDescription;
 
 
     // Constructors
 
-    public Category(String category_name, String category_description) {
-        this.category_name = category_name;
-        this.category_description = category_description;
+    public Category(String categoryName, String categoryDescription) {
+        this.categoryName = categoryName;
+        this.categoryDescription = categoryDescription;
 
     }
 
@@ -42,20 +42,20 @@ public class Category {
         this.id = id;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String category_name) {
+        this.categoryName = category_name;
     }
 
-    public String getCategory_description() {
-        return category_description;
+    public String getCategoryDescription() {
+        return categoryDescription;
     }
 
-    public void setCategory_description(String category_description) {
-        this.category_description = category_description;
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
 

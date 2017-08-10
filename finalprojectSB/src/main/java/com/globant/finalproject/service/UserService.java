@@ -16,7 +16,7 @@ public interface UserService {
 
     User getUserById (final Long id);
 
-    List<User> findByUser_name(final String user_name);
+    List<User> findByUserName(final String userName);
 
-    List<User> findByUser_lastname(final String last_name);
+    List<User> findByUserLastname(final String userLastname);
 }
