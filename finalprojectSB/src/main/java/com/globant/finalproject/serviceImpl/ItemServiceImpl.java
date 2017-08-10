@@ -1,7 +1,7 @@
 package com.globant.finalproject.serviceImpl;
 
 import com.globant.finalproject.model.Item;
-import com.globant.finalproject.repository.ItemRepository;
+import com.globant.finalproject.repositories.ItemRepository;
 import com.globant.finalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.globant.finalproject.serviceImpl;
 
 import com.globant.finalproject.model.Cart;
-import com.globant.finalproject.repository.CartRepository;
+import com.globant.finalproject.repositories.CartRepository;
 import com.globant.finalproject.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

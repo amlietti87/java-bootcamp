@@ -1,4 +1,4 @@
-package com.globant.finalproject.repository;
+package com.globant.finalproject.repositories;
 
 import com.globant.finalproject.model.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;

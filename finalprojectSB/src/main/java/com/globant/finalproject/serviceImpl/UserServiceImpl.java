@@ -1,7 +1,7 @@
 package com.globant.finalproject.serviceImpl;
 
 import com.globant.finalproject.model.User;
-import com.globant.finalproject.repository.UserRepository;
+import com.globant.finalproject.repositories.UserRepository;
 import com.globant.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.globant.finalproject.serviceImpl;
 
 import com.globant.finalproject.model.Product;
-import com.globant.finalproject.repository.ProductRepository;
+import com.globant.finalproject.repositories.ProductRepository;
 import com.globant.finalproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

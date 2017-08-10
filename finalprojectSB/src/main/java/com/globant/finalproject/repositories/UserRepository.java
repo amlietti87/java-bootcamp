@@ -1,4 +1,4 @@
-package com.globant.finalproject.repository;
+package com.globant.finalproject.repositories;
 
 import com.globant.finalproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

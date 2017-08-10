@@ -1,7 +1,7 @@
 package com.globant.finalproject.serviceImpl;
 
 import com.globant.finalproject.model.Category;
-import com.globant.finalproject.repository.CategoryRepository;
+import com.globant.finalproject.repositories.CategoryRepository;
 import com.globant.finalproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
