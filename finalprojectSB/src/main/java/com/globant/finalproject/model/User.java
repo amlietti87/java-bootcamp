@@ -83,5 +83,13 @@ public class User {
     public void setUser_nick(String user_nick) {
         this.user_nick = user_nick;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
 

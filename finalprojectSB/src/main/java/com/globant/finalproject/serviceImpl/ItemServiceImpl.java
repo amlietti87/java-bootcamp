@@ -4,13 +4,11 @@ import com.globant.finalproject.model.Item;
 import com.globant.finalproject.repository.ItemRepository;
 import com.globant.finalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service("itemService")
-@Transactional
+@Component
 public class ItemServiceImpl implements ItemService {
 
     @Autowired

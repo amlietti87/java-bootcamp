@@ -4,13 +4,11 @@ import com.globant.finalproject.model.Category;
 import com.globant.finalproject.repository.CategoryRepository;
 import com.globant.finalproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service("categoryService")
-@Transactional
+@Component
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
