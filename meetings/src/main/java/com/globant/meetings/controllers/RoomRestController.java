@@ -3,10 +3,7 @@ package com.globant.meetings.controllers;
 import com.globant.meetings.model.Room;
 import com.globant.meetings.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +28,7 @@ public class RoomRestController {
     }
 
     @RequestMapping(value = "/add", method = POST)
-    public Room addRoom(final @ModelAttribute("room") Room room){
+    public Room addRoom(@RequestBody Room room){
         return roomRepository.save(room);
 
     }
@@ -43,7 +40,7 @@ public class RoomRestController {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return "redirect:/room/list";
     }
 }
 

@@ -3,7 +3,9 @@ package com.globant.meetings.controllers;
 import com.globant.meetings.model.Meeting;
 import com.globant.meetings.repositories.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,23 +32,24 @@ public class MeetingRestController {
     }
 
     @RequestMapping(value = "/add", method = POST)
-    public Meeting addMeeting(final Meeting meeting){
+    public Meeting addMeeting(@RequestBody Meeting meeting){
         return meetingRepository.save(meeting);
 
     }
 
     @RequestMapping(value = "/remove/{id}")
-    public Meeting removeMeeting(final @PathVariable("id") Long id){
+    public String removeMeeting(final @PathVariable("id") Long id){
         try {
             meetingRepository.delete(id);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return "redirect:/meeting/list";
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public Meeting editMeeting(final @PathVariable("id") Long id){
-        return meetingRepository.findOne(id);
+    public Meeting editMeeting( @PathVariable("id") Long id, @RequestBody Meeting meeting){
+         meeting.setId(id);
+         return meetingRepository.save(meeting);
     }
 }

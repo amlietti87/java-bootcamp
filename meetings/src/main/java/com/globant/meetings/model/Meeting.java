@@ -19,16 +19,12 @@ public class Meeting {
     @OneToOne
     private Room room;
 
-    @Column (name = "m_date")
-    public Date mDate;
-
     @Column (name = "time_slot")
     public String timeSlot;
 
     public Meeting(Attendee attendee, Room room, Date mDate, String timeSlot) {
         this.attendee = attendee;
         this.room = room;
-        this.mDate = mDate;
         this.timeSlot = timeSlot;
     }
 
@@ -57,14 +53,6 @@ public class Meeting {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    public Date getmDate() {
-        return mDate;
-    }
-
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
     }
 
     public String getTimeSlot() {

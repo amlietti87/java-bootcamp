@@ -5,6 +5,7 @@ import com.globant.meetings.model.Attendee;
 import com.globant.meetings.repositories.AttendeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,16 +34,16 @@ public class AttendeeRestController {
     }
 
     @RequestMapping(value = "/add", method = POST)
-    public Attendee addAttendee(final Attendee attendee){
+    public Attendee addAttendee(@RequestBody Attendee attendee){
         return attendeeRepository.save(attendee);
 
     }
 
     @RequestMapping(value = "/remove/{id}")
-    public Attendee removeAttendee(final @PathVariable("id") Long id){
+    public String removeAttendee(final @PathVariable("id") Long id){
 
         attendeeRepository.delete(id);
 
-        return null;
+        return "redirect:/attendee/list";
     }
 }

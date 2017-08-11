@@ -12,18 +12,19 @@ public class Attendee {
     private Long id;
 
     @Column(name = "attendee_name")
-    public String atttendesName;
+    public String attendeName;
 
     @Column(name = "attendee_lastname")
-    public String attendesLastName;
+    public String attendeLastName;
 
-
-    public Attendee(String attendesName, String attendesLastName) {
-        this.atttendesName = attendesName;
-        this.attendesLastName = attendesLastName;
-    }
 
     public Attendee() {
+
+    }
+
+    public Attendee(String attendeName, String attendeLastName) {
+        this.attendeName = attendeName;
+        this.attendeLastName = attendeLastName;
     }
 
     public Long getId() {
@@ -34,19 +35,19 @@ public class Attendee {
         this.id = id;
     }
 
-    public String getAtttendesName() {
-        return atttendesName;
+    public String getAttendeName() {
+        return attendeName;
     }
 
-    public void setAtttendesName(String atttendesName) {
-        this.atttendesName = atttendesName;
+    public void setAttendeName(String attendeName) {
+        this.attendeName = attendeName;
     }
 
-    public String getAttendesLastName() {
-        return attendesLastName;
+    public String getAttendeLastName() {
+        return attendeLastName;
     }
 
-    public void setAttendesLastName(String attendesLastName) {
-        this.attendesLastName = attendesLastName;
+    public void setAttendeLastName(String attendeLastName) {
+        this.attendeLastName = attendeLastName;
     }
 }
