@@ -17,15 +17,18 @@ public class Cart {
     @OneToMany
     private Set<Item> items;
 
+    @OneToOne
+    private User user;
+
     //Constructors
 
-
-    public Cart(Set<Item> items) {
-        this.items = items;
+    public Cart() {
+        //JpaOnly
     }
 
-    public Cart() {
-        //Jpa Only.
+    public Cart(Set<Item> items, User user) {
+        this.items = items;
+        this.user = user;
     }
 
     // Getters and Setters
