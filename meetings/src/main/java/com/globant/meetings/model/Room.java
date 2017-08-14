@@ -1,7 +1,13 @@
 package com.globant.meetings.model;
 
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+
+import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.*;
 
 @Entity
 @Table(name = "room")
@@ -17,6 +23,12 @@ public class Room {
 
     @Column (name = "room_name")
     public String roomName;
+
+    @OneToMany(mappedBy = "room")
+    @Cascade(ALL)
+    private List<Meeting> meetings;
+
+
 
     public Room(int roomNumber, String roomName) {
         this.roomNumber = roomNumber;
@@ -49,6 +61,24 @@ public class Room {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public List<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomNumber=" + roomNumber +
+                ", roomName='" + roomName + '\'' +
+                ", meetings=" + meetings +
+                '}';
     }
 }
 

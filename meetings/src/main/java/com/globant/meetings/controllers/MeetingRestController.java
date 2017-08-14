@@ -37,13 +37,13 @@ public class MeetingRestController {
     }
 
     @RequestMapping(value = "/remove/{id}")
-    public Meeting removeMeeting(final @PathVariable("id") Long id){
+    public String removeMeeting(final @PathVariable("id") Long id){
         try {
             meetingRepository.delete(id);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return "redirect:/meeting/list";
     }
 
     @RequestMapping(value = "/edit/{id}")

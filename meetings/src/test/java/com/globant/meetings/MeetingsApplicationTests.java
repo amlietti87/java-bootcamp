@@ -1,16 +1,16 @@
-package com.globant.meetings;
+//package com.globant.meetings;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class MeetingsApplicationTests {
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//public class MeetingsApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+//	@Test
+//	public void contextLoads() {
+//	}
 
-}
+//}

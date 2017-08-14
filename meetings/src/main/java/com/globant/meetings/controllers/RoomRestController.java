@@ -42,5 +42,11 @@ public class RoomRestController {
         }
         return "redirect:/room/list";
     }
+
+    @RequestMapping(value = "/edit/{id}")
+    public Room editMeeting( @PathVariable("id") Long id, @RequestBody Room room){
+        room.setId(id);
+        return roomRepository.save(room);
+    }
 }
 

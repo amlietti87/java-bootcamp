@@ -42,10 +42,20 @@ public class AttendeeRestController {
 
     @RequestMapping(value = "/remove/{id}")
     @ResponseStatus(OK)
-    public Attendee removeAttendee(final @PathVariable("id") Long id){
+    public String removeAttendee(final @PathVariable("id") Long id){
 
-        attendeeRepository.delete(id);
+        try {
+            attendeeRepository.delete(id);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        return null;
+        return "redirect:/attendee/list";
+    }
+
+    @RequestMapping(value = "/edit/{id}")
+    public Attendee editMeeting( @PathVariable("id") Long id, @RequestBody Attendee attendee){
+        attendee.setId(id);
+        return attendeeRepository.save(attendee);
     }
 }

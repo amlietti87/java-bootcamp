@@ -1,6 +1,12 @@
 package com.globant.meetings.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+
+import static org.hibernate.annotations.CascadeType.DELETE;
+import static org.hibernate.annotations.CascadeType.PERSIST;
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 @Entity
 @Table(name = "attendee")
@@ -16,6 +22,9 @@ public class Attendee {
 
     @Column(name = "attendee_lastname")
     public String attendeLastName;
+
+    @ManyToOne
+    private Meeting meeting;
 
 
     public Attendee() {
@@ -49,5 +58,23 @@ public class Attendee {
 
     public void setAttendeLastName(String attendeLastName) {
         this.attendeLastName = attendeLastName;
+    }
+
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
+    }
+
+    @Override
+    public String toString() {
+        return "Attendee{" +
+                "id=" + id +
+                ", attendeName='" + attendeName + '\'' +
+                ", attendeLastName='" + attendeLastName + '\'' +
+                ", meeting=" + meeting +
+                '}';
     }
 }

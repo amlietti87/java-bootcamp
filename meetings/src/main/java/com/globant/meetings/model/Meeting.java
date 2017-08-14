@@ -1,8 +1,13 @@
 package com.globant.meetings.model;
 
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
-import java.util.Date;
+
+import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.ALL;
 
 @Entity
 @Table( name = "meeting")
@@ -13,17 +18,19 @@ public class Meeting {
     @Column(name = "meeting_id")
     private Long id;
 
-    @OneToOne
-    private Attendee attendee;
+    // One meeting may have one or more attendees.
+    @OneToMany (mappedBy = "meeting")
+    @Cascade(ALL)
+    private List<Attendee> attendees;
 
-    @OneToOne
+    @ManyToOne
     private Room room;
 
     @Column (name = "time_slot")
     public String timeSlot;
 
-    public Meeting(Attendee attendee, Room room, Date mDate, String timeSlot) {
-        this.attendee = attendee;
+    public Meeting(List<Attendee> attendees, Room room, String timeSlot) {
+        this.attendees = attendees;
         this.room = room;
         this.timeSlot = timeSlot;
     }
@@ -39,12 +46,12 @@ public class Meeting {
         this.id = id;
     }
 
-    public Attendee getAttendee() {
-        return attendee;
+    public List<Attendee> getAttendees() {
+        return attendees;
     }
 
-    public void setAttendee(Attendee attendee) {
-        this.attendee = attendee;
+    public void setAttendees(List<Attendee> attendees) {
+        this.attendees = attendees;
     }
 
     public Room getRoom() {
