@@ -1,6 +1,8 @@
 package com.globant.finalproject.model;
 
 import javax.persistence.*;
+import javax.validation.groups.ConvertGroup;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,9 +17,11 @@ public class Cart {
     private Long id;
 
     @OneToMany
-    private Set<Item> items;
+    private List<Item> items;
 
-    @OneToOne
+    // One or more carts belong to one user
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     //Constructors
@@ -26,7 +30,7 @@ public class Cart {
         //JpaOnly
     }
 
-    public Cart(Set<Item> items, User user) {
+    public Cart(List<Item> items, User user) {
         this.items = items;
         this.user = user;
     }
@@ -34,11 +38,11 @@ public class Cart {
     // Getters and Setters
 
 
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
@@ -48,5 +52,14 @@ public class Cart {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", items=" + items +
+                ", user=" + user +
+                '}';
     }
 }

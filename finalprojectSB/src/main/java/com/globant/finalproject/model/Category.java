@@ -16,16 +16,12 @@ public class Category {
     @Column(name = "category_name")
     public String categoryName;
 
-    @Column(name = "category_description")
-    public String categoryDescription;
-
 
     // Constructors
 
-    public Category(String categoryName, String categoryDescription) {
-        this.categoryName = categoryName;
-        this.categoryDescription = categoryDescription;
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Category() {
@@ -50,14 +46,13 @@ public class Category {
         this.categoryName = category_name;
     }
 
-    public String getCategoryDescription() {
-        return categoryDescription;
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
     }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
-
-
 }
+
 

@@ -1,12 +1,13 @@
 package com.globant.finalproject.service;
 
+import com.globant.finalproject.model.Category;
 import com.globant.finalproject.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> listProduct();
+    List<Product> listProducts();
 
     void addProduct (final Product product);
 
@@ -18,6 +19,6 @@ public interface ProductService {
 
     List<Product> findByProductName(final String productName);
 
-    //List<Product> findByProductsByCategoryName(final String categoryName);
+    List<Product> findByCategory(final Category category);
 
 }

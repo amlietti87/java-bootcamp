@@ -1,5 +1,6 @@
 package com.globant.finalproject.serviceImpl;
 
+import com.globant.finalproject.model.Category;
 import com.globant.finalproject.model.Product;
 import com.globant.finalproject.repositories.ProductRepository;
 import com.globant.finalproject.service.ProductService;
@@ -15,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> listProduct() {
+    public List<Product> listProducts() {
         return productRepository.findAll();
     }
 
@@ -44,9 +45,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByProductName(productName);
     }
 
-   // @Override
-   // public List<Product> findByProductsByCategoryName(String categoryName) {
-   //     return productRepository.findProductsByCategoryName(categoryName);
-   // }
+    @Override
+    public List<Product> findByCategory(Category category) {
+        return productRepository.findProductsByCategory(category);
+    }
+
 
 }

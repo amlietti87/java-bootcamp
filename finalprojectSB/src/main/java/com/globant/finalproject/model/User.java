@@ -1,6 +1,11 @@
 package com.globant.finalproject.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.ALL;
 
 @Entity
 @Table(name = "user")
@@ -26,6 +31,11 @@ public class User {
 
     @Column(name = "user_nick")
     public String userNick;
+
+    // One user may have one or more carts.
+    @OneToMany (mappedBy = "user")
+    @Cascade(ALL)
+    private List<Cart> carts;
 
     //Constructors
 
@@ -89,6 +99,18 @@ public class User {
 
     public void setUserNick(String userNick) {
         this.userNick = userNick;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userLastname='" + userLastname + '\'' +
+                ", userDni='" + userDni + '\'' +
+                ", userPass='" + userPass + '\'' +
+                ", userNick='" + userNick + '\'' +
+                '}';
     }
 }
 

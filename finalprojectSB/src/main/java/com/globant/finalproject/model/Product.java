@@ -1,6 +1,7 @@
 package com.globant.finalproject.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,17 +18,18 @@ public class Product {
     @Column(name = "product_name")
     public String productName;
 
-    @Column(name = "product_descrption")
+    @Column(name = "product_description")
     public String productDescription;
 
     @Column (name = "product_price")
     public double productPrice;
 
+    // One or more product may belong to one or more categories
     @ManyToMany
     @JoinTable(name = "products_category",
             joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"))
-    private Set<Category> category;
+    private List<Category> category;
 
 
     // Constructors
@@ -76,15 +78,23 @@ public class Product {
         this.id = id;
     }
 
-    public Set<Category> getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(Set<Category> category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", productPrice=" + productPrice +
+                ", category=" + category +
+                '}';
+    }
 }
 
