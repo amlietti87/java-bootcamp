@@ -1,10 +1,10 @@
 package com.globant.finalproject.controllers;
 
 import com.globant.finalproject.model.Item;
-import com.globant.finalproject.service.ItemService;
-import com.globant.finalproject.serviceImpl.ItemServiceImpl;
+import com.globant.finalproject.model.PStock;
+import com.globant.finalproject.service.PStockService;
+import com.globant.finalproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,34 +15,33 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping("/item")
-public class ItemRestController {
+@RequestMapping("stock")
+public class PStockRestController {
 
-
-    private ItemService itemService;
+    private PStockService pStockService;
 
     @Autowired
-    public ItemRestController(ItemService itemService) {
-        this.itemService = itemService;
+    public PStockRestController(PStockService pStockService) {
+        this.pStockService = pStockService;
     }
 
     @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
-    public List <Item> getAllItem(){
+    public List<PStock> getAllStock(){
 
-        List<Item> listItems = itemService.listItem();
-        return listItems;
+        List<PStock> listPStocks = pStockService.listPStock();
+        return listPStocks;
     }
 
     @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public Item addItem (@RequestBody Item item){
-        if (item.getId()==null){
-            itemService.addItem(item);
+    public PStock addStock (@RequestBody PStock pStock){
+        if (pStock.getId()==null){
+            pStockService.addStock(pStock);
         }else{
-            itemService.updateItem(item);
+            pStockService.updateStock(pStock);
         }
         return null;
     }
@@ -50,18 +49,18 @@ public class ItemRestController {
     @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "{id}", method = PUT)
     @ResponseStatus(OK)
-    public Item updateItem(@PathVariable("id") Long id, @RequestBody Item item){
-        item.setId(id);
-        itemService.updateItem(item);
+    public PStock updatePStock(@PathVariable("id") Long id, @RequestBody PStock pStock){
+        pStock.setId(id);
+        pStockService.updateStock(pStock);
         return null;
     }
 
     @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
-    public Item removeItem(@PathVariable("id") Long id){
+    public PStock removePStock(@PathVariable("id") Long id){
         try {
-            itemService.removeItem(id);
+            pStockService.removeStock(id);
         } catch (Exception e){
             e.printStackTrace();
         }

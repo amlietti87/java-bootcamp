@@ -1,18 +1,18 @@
 package com.globant.finalproject.controllers;
 
-import com.globant.finalproject.model.Category;
+import com.globant.finalproject.model.ParamRequest;
 import com.globant.finalproject.model.Product;
 import com.globant.finalproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/product")
@@ -25,9 +25,8 @@ public class ProductRestController {
         this.productService = productService;
     }
 
-
-
-    @RequestMapping(value = "/list", method = GET)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<Product> getAllProducts(){
 
@@ -35,7 +34,8 @@ public class ProductRestController {
         return listProducts;
     }
 
-    @RequestMapping(value = "/add", method = POST)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public Product addProduct (@RequestBody Product product){
         if (product.getId()==null){
@@ -46,7 +46,8 @@ public class ProductRestController {
         return product;
     }
 
-    @RequestMapping(value = "/update/{id}", method = POST)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(value = "/{id}", method = PUT)
     @ResponseStatus(OK)
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
         productService.getProductById(id);
@@ -54,27 +55,31 @@ public class ProductRestController {
         return product;
     }
 
-    @RequestMapping(value = "/remove/{id}")
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseStatus(OK)
-    public String removeProduct(@PathVariable("id") Long id){
+    public ResponseEntity<String> removeProduct(@PathVariable("id") Long id){
         try {
             productService.removeProduct(id);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return "redirect:/category/list";
+        return new ResponseEntity<>("Deleted ok", OK);
     }
 
-    @RequestMapping(value = "/searchbyname/{productName}")
-    @ResponseStatus(FOUND)
-    public List<Product> findByName(@PathVariable String productName){
-        return productService.findByProductName(productName);
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(value = "/search", method = GET)
+    @ResponseStatus(OK)
+    public List<Product> findByName(@RequestBody ParamRequest request){
+        if (request.getType().equals(ParamRequest.SearchType.PR)) {
+            if(request.getSearchParam().length() == 0) {
+                throw new MyException("cannot send products with length 0");
+            }
+            return productService.findByProductName(request.getSearchParam());
+        }
+
+        return productService.findByCategory(request.getSearchParam());
     }
 
-    @RequestMapping(value = "searchbycategory", method = POST)
-    @ResponseStatus(FOUND)
-    public List<Product> findByCategory(@RequestBody Category category){
-        return productService.findByCategory(category);
-    }   
 }
 

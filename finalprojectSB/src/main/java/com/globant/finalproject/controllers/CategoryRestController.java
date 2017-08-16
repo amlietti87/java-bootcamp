@@ -3,14 +3,14 @@ package com.globant.finalproject.controllers;
 import com.globant.finalproject.model.Category;
 import com.globant.finalproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/category")
@@ -23,7 +23,8 @@ public class CategoryRestController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "/list", method = GET)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<Category> getAllCategories(){
 
@@ -31,7 +32,8 @@ public class CategoryRestController {
         return listCategories;
     }
 
-    @RequestMapping(value = "/add", method = POST)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public Category addCategory (@RequestBody Category category){
         if (category.getId()==null){
@@ -42,7 +44,8 @@ public class CategoryRestController {
         return category;
     }
 
-    @RequestMapping(value = "/update/{id}", method = POST)
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(value = "{id}", method = PUT)
     @ResponseStatus(OK)
     public Category updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
         category.setId(id);
@@ -50,7 +53,8 @@ public class CategoryRestController {
         return category;
     }
 
-    @RequestMapping(value = "/remove/{id}")
+    @PreAuthorize("hasAnyRole()")
+    @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
     public String removeCategory(@PathVariable("id") Long id){
         try {

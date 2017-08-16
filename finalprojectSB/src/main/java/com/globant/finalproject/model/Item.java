@@ -8,7 +8,7 @@ public class Item {
 
     //Fields and relationship between product and item. One Item is one product.
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "item_id")
     private Long id;
 

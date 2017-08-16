@@ -13,7 +13,7 @@ public class User {
 
     //Fields
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
 
@@ -43,12 +43,13 @@ public class User {
         // JpaOnly
     }
 
-    public User(String userName, String userLastname, String userDni, String userPass, String userNick) {
-        this.userName = userName;
-        this.userLastname = userLastname;
-        this.userDni = userDni;
-        this.userPass = userPass;
-        this.userNick = userNick;
+    public User(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.userLastname = user.getUserLastname();
+        this.userDni = user.getUserDni();
+        this.userPass = user.getUserDni();
+        this.userNick = user.getUserNick();
     }
 
     //Getters and Setters

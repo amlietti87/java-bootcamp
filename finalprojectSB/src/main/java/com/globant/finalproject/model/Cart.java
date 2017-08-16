@@ -12,7 +12,7 @@ public class Cart {
 
     // Fields and relationship between cart and items.
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")
     private Long id;
 
