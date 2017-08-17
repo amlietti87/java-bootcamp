@@ -2,6 +2,7 @@ package com.globant.finalproject.controllers;
 
 import com.globant.finalproject.model.User;
 import com.globant.finalproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,11 @@ public class UserRestController {
 
     private UserService userService;
 
+    @Autowired
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<User> getAllUsers(){
@@ -31,18 +32,17 @@ public class UserRestController {
         return listUsers;
     }
 
-    @RequestMapping(method = POST)
-    @ResponseStatus(CREATED)
-    public User addUser (@RequestBody User user){
-        if (user.getId()==null){
-            userService.addUser(user);
-        }else{
-            userService.updateUser(user);
-        }
-        return user;
-    }
+//    @RequestMapping(method = POST)
+//    @ResponseStatus(CREATED)
+//    public User addUser (@RequestBody User user){
+//        if (user.getId()==null){
+//            userService.addUser(user);
+//        }else{
+//            userService.updateUser(user);
+//        }
+//        return user;
+//    }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseStatus(OK)
     public User updateUser(@PathVariable("id") Long id, @RequestBody User user){
@@ -51,7 +51,6 @@ public class UserRestController {
         return user;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseStatus(OK)
     public ResponseEntity<String> removeUser(@PathVariable("id") Long id){

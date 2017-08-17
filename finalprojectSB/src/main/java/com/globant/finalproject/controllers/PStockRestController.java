@@ -34,7 +34,7 @@ public class PStockRestController {
         return listPStocks;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public PStock addStock (@RequestBody PStock pStock){
@@ -46,7 +46,7 @@ public class PStockRestController {
         return null;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "{id}", method = PUT)
     @ResponseStatus(OK)
     public PStock updatePStock(@PathVariable("id") Long id, @RequestBody PStock pStock){
@@ -55,7 +55,7 @@ public class PStockRestController {
         return null;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
     public PStock removePStock(@PathVariable("id") Long id){

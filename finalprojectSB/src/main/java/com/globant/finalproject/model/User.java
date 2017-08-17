@@ -44,7 +44,6 @@ public class User {
     }
 
     public User(User user) {
-        this.id = user.getId();
         this.userName = user.getUserName();
         this.userLastname = user.getUserLastname();
         this.userDni = user.getUserDni();

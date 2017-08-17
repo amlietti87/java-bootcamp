@@ -25,7 +25,6 @@ public class ProductRestController {
         this.productService = productService;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<Product> getAllProducts(){
@@ -34,7 +33,6 @@ public class ProductRestController {
         return listProducts;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public Product addProduct (@RequestBody Product product){
@@ -46,7 +44,6 @@ public class ProductRestController {
         return product;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "/{id}", method = PUT)
     @ResponseStatus(OK)
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
@@ -55,7 +52,7 @@ public class ProductRestController {
         return product;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseStatus(OK)
     public ResponseEntity<String> removeProduct(@PathVariable("id") Long id){
@@ -67,7 +64,7 @@ public class ProductRestController {
         return new ResponseEntity<>("Deleted ok", OK);
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "/search", method = GET)
     @ResponseStatus(OK)
     public List<Product> findByName(@RequestBody ParamRequest request){

@@ -23,7 +23,6 @@ public class CategoryRestController {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List<Category> getAllCategories(){
@@ -32,7 +31,6 @@ public class CategoryRestController {
         return listCategories;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public Category addCategory (@RequestBody Category category){
@@ -44,7 +42,7 @@ public class CategoryRestController {
         return category;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "{id}", method = PUT)
     @ResponseStatus(OK)
     public Category updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
@@ -53,7 +51,7 @@ public class CategoryRestController {
         return category;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
     public String removeCategory(@PathVariable("id") Long id){

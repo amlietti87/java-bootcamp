@@ -26,7 +26,7 @@ public class ItemRestController {
         this.itemService = itemService;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(method = GET)
     @ResponseStatus(OK)
     public List <Item> getAllItem(){
@@ -35,7 +35,7 @@ public class ItemRestController {
         return listItems;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
     public Item addItem (@RequestBody Item item){
@@ -47,7 +47,6 @@ public class ItemRestController {
         return null;
     }
 
-    @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "{id}", method = PUT)
     @ResponseStatus(OK)
     public Item updateItem(@PathVariable("id") Long id, @RequestBody Item item){
@@ -56,7 +55,7 @@ public class ItemRestController {
         return null;
     }
 
-    @PreAuthorize("hasAnyRole()")
+
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
     public Item removeItem(@PathVariable("id") Long id){

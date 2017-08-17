@@ -4,6 +4,7 @@ import com.globant.finalproject.model.User;
 import com.globant.finalproject.repositories.UserRepository;
 import com.globant.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> listUsers() {
@@ -22,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
+        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
         userRepository.save(user);
     }
 
