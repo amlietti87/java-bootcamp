@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<User> optionalUsers = userRepository.findByUserNick(usernick);
 
         optionalUsers
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usernick not found"));
         return optionalUsers
                 .map(CustomUserDetails::new).get();
     }

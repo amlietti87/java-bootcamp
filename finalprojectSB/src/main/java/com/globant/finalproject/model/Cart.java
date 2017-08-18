@@ -20,9 +20,11 @@ public class Cart {
     private List<Item> items;
 
     // One or more carts belong to one user
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
     private User user;
+
+    @Column(name = "paid")
+    private int paid = 0;
 
     //Constructors
 
@@ -30,9 +32,8 @@ public class Cart {
         //JpaOnly
     }
 
-    public Cart(List<Item> items, User user) {
+    public Cart(List<Item> items) {
         this.items = items;
-        this.user = user;
     }
 
     // Getters and Setters
@@ -54,12 +55,38 @@ public class Cart {
         this.id = id;
     }
 
+    public double getTotal(){
+        double total = 0;
+        for (Item item: items) {
+            total += item.getProduct().getProductPrice() * item.getItemQuantity();
+        }
+
+        return total;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public int getPaid() {
+        return paid;
+    }
+
+    public void setPaid(int paid) {
+        this.paid = paid;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
                 "id=" + id +
                 ", items=" + items +
                 ", user=" + user +
+                ", paid=" + paid +
                 '}';
     }
 }

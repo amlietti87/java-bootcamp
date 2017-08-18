@@ -32,10 +32,9 @@ public class User {
     @Column(name = "user_nick")
     public String userNick;
 
-    // One user may have one or more carts.
-    @OneToMany (mappedBy = "user")
-    @Cascade(ALL)
-    private List<Cart> carts;
+    // One user may have one  carts.
+    @OneToOne
+    private Cart carts;
 
     //Constructors
 
@@ -99,6 +98,14 @@ public class User {
 
     public void setUserNick(String userNick) {
         this.userNick = userNick;
+    }
+
+    public Cart getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Cart carts) {
+        this.carts = carts;
     }
 
     @Override

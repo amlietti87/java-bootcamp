@@ -65,7 +65,7 @@ public class ProductRestController {
     }
 
 
-    @RequestMapping(value = "/search", method = GET)
+    @RequestMapping(value = "/search", method = POST)
     @ResponseStatus(OK)
     public List<Product> findByName(@RequestBody ParamRequest request){
         if (request.getType().equals(ParamRequest.SearchType.PR)) {
