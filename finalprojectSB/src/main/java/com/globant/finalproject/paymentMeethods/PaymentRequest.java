@@ -1,4 +1,4 @@
-package com.globant.finalproject.model;
+package com.globant.finalproject.paymentMeethods;
 
 public class PaymentRequest {
 

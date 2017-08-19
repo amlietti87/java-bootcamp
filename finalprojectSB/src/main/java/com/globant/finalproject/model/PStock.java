@@ -1,5 +1,6 @@
 package com.globant.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
@@ -14,10 +15,12 @@ public class PStock {
     @Column(name = "stock_id")
     private Long id;
 
-    @Column(name = "stock_quantity")
-    public int stockQuantity;
+    @Column(name = "stock_quantity", columnDefinition="INT default '0'")
+    private int stockQuantity;
 
+    @JsonBackReference(value="stock-product")
     @OneToOne
+    @JoinColumn(name="product_id", nullable = false)
     private Product product;
 
     // Cosntructors
@@ -57,5 +60,14 @@ public class PStock {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "PStock{" +
+                "id=" + id +
+                ", stockQuantity=" + stockQuantity +
+                ", product_id=" + product.getId() +
+                '}';
     }
 }

@@ -20,13 +20,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addCart(Cart cart) {
-        cartRepository.save(cart);
+    public Cart addCart(Cart cart) {
+        return cartRepository.save(cart);
     }
 
     @Override
-    public void updateCart(Cart cart) {
-        cartRepository.save(cart);
+    public Cart updateCart(Cart cart) {
+        return cartRepository.save(cart);
     }
 
     @Override

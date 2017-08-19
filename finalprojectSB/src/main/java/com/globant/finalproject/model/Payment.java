@@ -1,6 +1,9 @@
 package com.globant.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table (name = "payment")
@@ -9,15 +12,19 @@ public class Payment {
 
     // Fields an relationship with Cart. One cart has one type of payment.
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "payment_id")
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @Column
+    @Column (name = "payment_type", nullable = false)
     private String paymentType;
+
+    @Column (name = "amount")
+    private double amount;
 
     // Consutructors.
 
@@ -25,8 +32,11 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(Cart cart) {
+    public Payment(Cart cart, String paymentType, double amount) {
         this.cart = cart;
+        this.paymentType = paymentType;
+        this.amount = amount;
+
     }
 
 
@@ -54,5 +64,23 @@ public class Payment {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", cart_id=" + cart.getId() +
+                ", paymentType='" + paymentType + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }

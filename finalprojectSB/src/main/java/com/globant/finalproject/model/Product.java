@@ -1,5 +1,7 @@
 package com.globant.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -16,12 +18,12 @@ public class Product {
     private Long id;
 
     @Column(name = "product_name")
-    public String productName;
+    private String productName;
 
     @Column(name = "product_description")
-    public String productDescription;
+    private String productDescription;
 
-    @Column (name = "product_price")
+    @Column (name = "product_price", columnDefinition = "Decimal(10,2) default '0.00'")
     public double productPrice;
 
     // One or more product may belong to one or more categories
@@ -30,6 +32,10 @@ public class Product {
             joinColumns = @JoinColumn (name = "product_id", referencedColumnName = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"))
     private List<Category> category;
+
+    @JsonManagedReference(value="stock-product")
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private PStock stock;
 
 
     // Constructors
@@ -46,11 +52,20 @@ public class Product {
 
     //Getters and Setters
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getProductName() {
         return productName;
     }
 
-    public void setProduct_Name(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
@@ -70,20 +85,20 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Category> getCategory() {
         return category;
     }
 
     public void setCategory(List<Category> category) {
         this.category = category;
+    }
+
+    public PStock getStock() {
+        return stock;
+    }
+
+    public void setStock(PStock stock) {
+        this.stock = stock;
     }
 
     @Override
@@ -94,6 +109,7 @@ public class Product {
                 ", productDescription='" + productDescription + '\'' +
                 ", productPrice=" + productPrice +
                 ", category=" + category +
+                ", stock=" + stock +
                 '}';
     }
 }

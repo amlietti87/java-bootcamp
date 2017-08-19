@@ -1,30 +1,42 @@
 package com.globant.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import javax.validation.groups.ConvertGroup;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "cart")
 public class Cart {
 
 
-    // Fields and relationship between cart and items.
+    // Fields and relationship between cart and shops.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")
     private Long id;
 
-    @OneToMany
-    private List<Item> items;
+    @JsonManagedReference(value = "cart-shops")
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+    private List<Shop> shops;
 
-    // One or more carts belong to one user
+    // One user has carts belong to one user
     @OneToOne
+    @JsonBackReference(value = "cart-user")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "paid")
+    @Column(name = "paid", nullable = false)
     private int paid = 0;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.REMOVE)
+    private Payment payment;
 
     //Constructors
 
@@ -32,19 +44,21 @@ public class Cart {
         //JpaOnly
     }
 
-    public Cart(List<Item> items) {
-        this.items = items;
+    public Cart(User user, int paid) {
+        this.user = user;
+        this.paid = paid;
+
     }
 
     // Getters and Setters
 
 
-    public List<Item> getItems() {
-        return items;
+    public List<Shop> getShops() {
+        return shops;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
     }
 
     public Long getId() {
@@ -53,15 +67,6 @@ public class Cart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public double getTotal(){
-        double total = 0;
-        for (Item item: items) {
-            total += item.getProduct().getProductPrice() * item.getItemQuantity();
-        }
-
-        return total;
     }
 
     public void setUser(User user) {
@@ -80,13 +85,39 @@ public class Cart {
         this.paid = paid;
     }
 
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", items=" + items +
+                ", shops=" + shops +
                 ", user=" + user +
                 ", paid=" + paid +
                 '}';
+    }
+
+    @JsonIgnore
+    public double getTotal(){
+        double total = 0;
+        for (Shop shop : shops) {
+            total += shop.getProduct().getProductPrice() * shop.getShopQuantity();
+        }
+
+        return total;
+    }
+
+    @JsonIgnore
+    public Shop getCheapestitem() {
+        Comparator<Shop> comparatorItem = (item1,
+                                           item2) -> item1.getProduct().getProductPrice() < item2.getProduct().productPrice ? 1 : -1;
+        return shops.stream().max(comparatorItem).orElse(null);
     }
 }

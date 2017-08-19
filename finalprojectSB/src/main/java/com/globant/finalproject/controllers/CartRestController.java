@@ -4,62 +4,58 @@ package com.globant.finalproject.controllers;
 import com.globant.finalproject.model.Cart;
 import com.globant.finalproject.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@RequestMapping(name = "/cart")
+@RequestMapping(value = "/cart")
 public class CartRestController {
 
+    @Autowired
     private CartService cartService;
 
-    @Autowired
-    public CartRestController(CartService cartService) {
-        this.cartService = cartService;
-    }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(OK)
-    public List<Cart> getAllCarts(){
+    public ResponseEntity<List<Cart>> getAllCarts(){
+        return new ResponseEntity<>(cartService.listCarts(), OK);
+    }
 
-        List<Cart> listCarts = cartService.listCarts();
-        return listCarts;
+    @RequestMapping(value = "/{id}", method = GET)
+    public ResponseEntity<Cart> getCartById(@PathVariable Long id){
+        return new ResponseEntity<>(cartService.getCartById(id), OK);
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(CREATED)
-    public Cart addCart (@RequestBody Cart cart){
-        if (cart.getId()==null){
-           cartService.addCart(cart);
-        }else{
-            cartService.updateCart(cart);
-        }
-        return null;
+    public ResponseEntity <Cart> addCart(@RequestBody Cart cart){
+        return new ResponseEntity<>(cartService.addCart(cart), CREATED);
     }
 
-
-    @RequestMapping(value = "{id}", method = PUT)
-    @ResponseStatus(OK)
-    public Cart updateCart(@PathVariable("id") Long id, @RequestBody Cart cart){
-        cart.setId(id);
+    @RequestMapping(method = PUT)
+    public ResponseEntity<String> updateCart(@RequestBody Cart cart){
+        Cart c = cartService.getCartById(cart.getId());
+        if (c == null) {
+            return new ResponseEntity<>("There is no cart with id: " + cart.getId(), BAD_REQUEST);
+        }
         cartService.updateCart(cart);
-        return null;
+        return new ResponseEntity<>("Cart updated: " + cart, OK);
     }
 
-
-    @RequestMapping(value = "{id}", method = DELETE)
-    @ResponseStatus(OK)
-    public String removeCart(@PathVariable("id") Long id){
-        try {
-            cartService.removeCart(id);
-        } catch (Exception e){
-            e.printStackTrace();
+    @RequestMapping(value = "/{id}", method = DELETE)
+    public ResponseEntity<String> deleteCart(@PathVariable Long id){
+        Cart c = cartService.getCartById(id);
+        if (c == null) {
+            return new ResponseEntity<>("There is no cart with id: " + id, BAD_REQUEST);
         }
-        return "redirect:/category/list";
+        cartService.removeCart(id);
+        return new ResponseEntity<>("Cart deleted: " + c, OK);
     }
 }

@@ -1,11 +1,10 @@
 package com.globant.finalproject.model;
 
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import javax.persistence.*;
-import java.util.List;
 
-import static org.hibernate.annotations.CascadeType.ALL;
 
 @Entity
 @Table(name = "user")
@@ -17,24 +16,31 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_name")
-    public String userName;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
 
-    @Column(name = "user_lastname")
-    public String userLastname;
+    @Column(name = "user_lastname", nullable = false)
+    private String userLastname;
 
-    @Column(name = "user_dni")
-    public String userDni;
+    @Column(name = "user_dni", unique = true, nullable = false)
+    private String userDni;
 
-    @Column(name = "user_pass")
-    public String userPass;
+    @Column(name = "user_pass", nullable = false)
+    private String userPass;
 
-    @Column(name = "user_nick")
-    public String userNick;
+    @Column(name = "user_nick", unique = true, nullable = false)
+    private String userNick;
 
-    // One user may have one  carts.
-    @OneToOne
-    private Cart carts;
+    @Column(name = "user_email", unique = true, nullable = false)
+    private String userEmail;
+
+    @Column(name = "user_phonenumber", nullable = false)
+    private String userPhoneNumber;
+
+    // if delete a user, delete the cart associated
+    @JsonManagedReference(value = "cart-user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 
     //Constructors
 
@@ -48,6 +54,8 @@ public class User {
         this.userDni = user.getUserDni();
         this.userPass = user.getUserDni();
         this.userNick = user.getUserNick();
+        this.userEmail = user.getUserEmail();
+        this.userPhoneNumber = user.getUserPhoneNumber();
     }
 
     //Getters and Setters
@@ -100,12 +108,28 @@ public class User {
         this.userNick = userNick;
     }
 
-    public Cart getCarts() {
-        return carts;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setCarts(Cart carts) {
-        this.carts = carts;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override
@@ -117,6 +141,9 @@ public class User {
                 ", userDni='" + userDni + '\'' +
                 ", userPass='" + userPass + '\'' +
                 ", userNick='" + userNick + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", cart_id=" + cart.getId() +
                 '}';
     }
 }

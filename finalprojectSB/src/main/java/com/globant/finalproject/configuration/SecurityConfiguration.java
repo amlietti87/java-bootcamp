@@ -40,8 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/singup","/cart").permitAll()
-                .antMatchers("/user", "/category","/item","/product","/pstock").authenticated()
+                .antMatchers("/singup").permitAll()
+                .antMatchers("/user", "/category","/item","/product","/stock","/cart").authenticated()
                 .and()
                 // We filter the api/login requests
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),

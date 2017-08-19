@@ -8,9 +8,9 @@ public interface CartService {
 
     List<Cart> listCarts();
 
-    void addCart (final Cart cart);
+    Cart addCart (final Cart cart);
 
-    void updateCart (final Cart cart);
+    Cart updateCart (final Cart cart);
 
     void removeCart (final Long id);
 
