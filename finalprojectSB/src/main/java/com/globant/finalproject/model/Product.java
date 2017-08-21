@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -17,7 +19,7 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
 
-    @Column(name = "product_name")
+    @Column(name = "product_name", unique = true, nullable = false)
     private String productName;
 
     @Column(name = "product_description")
@@ -34,8 +36,12 @@ public class Product {
     private List<Category> category;
 
     @JsonManagedReference(value="stock-product")
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product")
     private PStock stock;
+
+    @JsonManagedReference(value="shop-product")
+    @OneToOne(mappedBy = "product")
+    private Shop shop;
 
 
     // Constructors
@@ -99,6 +105,14 @@ public class Product {
 
     public void setStock(PStock stock) {
         this.stock = stock;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     @Override

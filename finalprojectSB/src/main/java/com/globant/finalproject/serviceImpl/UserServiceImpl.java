@@ -41,17 +41,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.getOne(id);
+        return userRepository.findOne(id);
     }
 
     @Override
-    public List<User> findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public User findUserByUserEmail(String userEmail) {
+        return userRepository.findUserByUserEmail(userEmail);
     }
 
     @Override
-    public List<User> findByUserLastname(String userLastname) {
-        return userRepository.findByUserLastname(userLastname);
+    public User findUserByUserDni(String userDni) {
+        return userRepository.findUserByUserDni(userDni);
     }
 
 }

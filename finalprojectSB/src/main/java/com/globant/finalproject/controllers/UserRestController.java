@@ -3,14 +3,14 @@ package com.globant.finalproject.controllers;
 import com.globant.finalproject.model.User;
 import com.globant.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -25,34 +25,52 @@ public class UserRestController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(OK)
-    public List<User> getAllUsers(){
+    public ResponseEntity<List<User>> getAllUsers(){
 
         List<User> listUsers = userService.listUsers();
-        return listUsers;
+        return new ResponseEntity<>(listUsers, OK);
     }
 
-//    @RequestMapping(method = POST)
-//    @ResponseStatus(CREATED)
-//    public User addUser (@RequestBody User user){
-//        if (user.getId()==null){
-//            userService.addUser(user);
-//        }else{
-//            userService.updateUser(user);
-//        }
-//        return user;
-//    }
+    @RequestMapping(value = "/dni/{dni}", method = GET)
+    public ResponseEntity<User> getUserByDni(@PathVariable String dni){
+
+        User user = userService.findUserByUserDni(dni);
+        if (user == null) {
+            return new ResponseEntity<>((User) null, NO_CONTENT);
+        }
+        return new ResponseEntity<>(user, OK);
+    }
+
+    @RequestMapping(value = "/mail/{mail}", method = GET)
+    public ResponseEntity<User> getUserByUserEmail(@PathVariable String mail) {
+        User user = userService.findUserByUserEmail(mail);
+        if (user == null) {
+            return new ResponseEntity<>((User) null, NO_CONTENT);
+        }
+        return new ResponseEntity<>(user, OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = GET)
+    public ResponseEntity <User> getUserByUserId(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return new ResponseEntity<>((User) null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/{id}", method = PUT)
-    @ResponseStatus(OK)
-    public User updateUser(@PathVariable("id") Long id, @RequestBody User user){
-        userService.getUserById(id);
+    public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @RequestBody User user){
+        User user1 = userService.getUserById(id);
+        if (user1 == null){
+            return new ResponseEntity<>("The user with id "+ user.getId()+ " doesn't exists", NOT_FOUND);
+        }
         userService.updateUser(user);
-        return user;
+        return new ResponseEntity<>("Product with id "+ user.getId()+ " was updated", OK);
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)
-    @ResponseStatus(OK)
     public ResponseEntity<String> removeUser(@PathVariable("id") Long id){
         try {
             userService.removeUser(id);

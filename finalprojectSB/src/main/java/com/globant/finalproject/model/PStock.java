@@ -5,6 +5,9 @@ import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.REMOVE;
+
 @Entity
 @Table(name = "stock")
 public class PStock {
@@ -19,7 +22,7 @@ public class PStock {
     private int stockQuantity;
 
     @JsonBackReference(value="stock-product")
-    @OneToOne
+    @OneToOne(cascade = ALL)
     @JoinColumn(name="product_id", nullable = false)
     private Product product;
 
@@ -67,7 +70,7 @@ public class PStock {
         return "PStock{" +
                 "id=" + id +
                 ", stockQuantity=" + stockQuantity +
-                ", product_id=" + product.getId() +
+                ", product_name=" + product.getId() +
                 '}';
     }
 }

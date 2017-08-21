@@ -3,22 +3,27 @@ package com.globant.finalproject.controllers;
 import com.globant.finalproject.model.PStock;
 import com.globant.finalproject.model.Product;
 import com.globant.finalproject.model.Shop;
+import com.globant.finalproject.repositories.PStockRepository;
 import com.globant.finalproject.service.CartService;
 import com.globant.finalproject.service.PStockService;
 import com.globant.finalproject.service.ProductService;
 import com.globant.finalproject.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/shop")
 public class ShopRestController {
+
+
+    @Autowired
+    private PStockService pStockService;
 
 
     private ShopService shopService;
@@ -30,52 +35,53 @@ public class ShopRestController {
 
 
     @RequestMapping(method = GET)
-    @ResponseStatus(OK)
-    public List <Shop> getAllShops(){
+    public ResponseEntity<List <Shop>> getAllShops(){
 
         List<Shop> listShops = shopService.listShop();
-        return listShops;
+        return new ResponseEntity<>(listShops, OK) ;
     }
 
 
     @RequestMapping(method = POST)
-    @ResponseStatus(CREATED)
-    public Shop addShop (@RequestBody Shop shop) {
-        int stock = shop.getProduct().getStock().getStockQuantity();
+    public ResponseEntity<Shop> addShop (@RequestBody Shop shop) {
+        Long productId = shop.getProduct().getId();
+        PStock stock = pStockService.findPStockByProductId(productId);
         int items = shop.getShopQuantity();
-        //System.out.println(stock);
-        System.out.println(items);
-        //if ( stock > items ) {
+        if ((stock.getStockQuantity() - items) >= 0) {
             if (shop.getId() == null) {
                 shopService.addShop(shop);
+                return new ResponseEntity<>(shop, CREATED);
             } else if(shop.getId() != null) {
                 shopService.updateShop(shop);
-            }//else{
+                return new ResponseEntity<>(shop, OK);
+            }else{
 
-              //  throw new MyException("We do not have the availability of requested products");
-            //}
+                throw new MyException("We do not have the availability of requested products");
+            }
 
-        //}
-       return null;
+        }
+       return new ResponseEntity<>(shop, NOT_ACCEPTABLE);
     }
 
     @RequestMapping(value = "{id}", method = PUT)
-    @ResponseStatus(OK)
-    public Shop updateShop(@PathVariable("id") Long id, @RequestBody Shop shop){
-        shop.setId(id);
+    public ResponseEntity<String> updateShop(@PathVariable("id") Long id, @RequestBody Shop shop){
+        Shop shopping = shopService.getShopById(id);
+        if (shopping == null){
+            return new ResponseEntity<>("The shop with id "+ shop.getId()+ " doesn't exists", NOT_FOUND);
+        }
         shopService.updateShop(shop);
-        return null;
+        return new ResponseEntity<>("Shop with id "+ shop.getId()+ " was updated", OK);
     }
 
 
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(OK)
-    public Shop removeShop(@PathVariable("id") Long id){
+    public ResponseEntity<String> removeShop(@PathVariable("id") Long id){
         try {
-            shopService.removeShop(id);
+           shopService.removeShop(id);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return new ResponseEntity<>("Shop deleted OK", OK);
     }
 }

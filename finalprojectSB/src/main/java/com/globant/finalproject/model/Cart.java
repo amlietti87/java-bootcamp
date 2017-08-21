@@ -8,7 +8,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+
+import static javax.persistence.CascadeType.REMOVE;
 
 @Entity
 @Table(name = "cart")
@@ -26,17 +29,21 @@ public class Cart {
     private List<Shop> shops;
 
     // One user has carts belong to one user
-    @OneToOne
+    @OneToOne(cascade = REMOVE)
     @JsonBackReference(value = "cart-user")
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @Column(name = "paid", nullable = false)
-    private int paid = 0;
+    @Column(name = "cart_paid")
+    private boolean cartPaid;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "cart", cascade = CascadeType.REMOVE)
+    @JsonManagedReference(value = "cart-payment")
+    @OneToOne(mappedBy = "cart")
     private Payment payment;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "cart_date")
+    private Date cartDate = new Date();
 
     //Constructors
 
@@ -44,9 +51,8 @@ public class Cart {
         //JpaOnly
     }
 
-    public Cart(User user, int paid) {
+    public Cart(User user) {
         this.user = user;
-        this.paid = paid;
 
     }
 
@@ -77,13 +83,14 @@ public class Cart {
         return user;
     }
 
-    public int getPaid() {
-        return paid;
+    public boolean isCartPaid() {
+        return cartPaid;
     }
 
-    public void setPaid(int paid) {
-        this.paid = paid;
+    public void setCartPaid(boolean cartPaid) {
+        this.cartPaid = cartPaid;
     }
+
 
 
     public Payment getPayment() {
@@ -99,8 +106,10 @@ public class Cart {
         return "Cart{" +
                 "id=" + id +
                 ", shops=" + shops +
-                ", user=" + user +
-                ", paid=" + paid +
+                ", userNick=" + user.getUserNick() +
+                ", cartPaid=" + cartPaid +
+                ", payment=" + payment +
+                ", cartDate=" + cartDate +
                 '}';
     }
 
@@ -120,4 +129,5 @@ public class Cart {
                                            item2) -> item1.getProduct().getProductPrice() < item2.getProduct().productPrice ? 1 : -1;
         return shops.stream().max(comparatorItem).orElse(null);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.globant.finalproject.controllers;
 
+import com.globant.finalproject.model.Category;
 import com.globant.finalproject.model.ParamRequest;
 import com.globant.finalproject.model.Product;
 import com.globant.finalproject.service.ProductService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -26,35 +28,37 @@ public class ProductRestController {
     }
 
     @RequestMapping(method = GET)
-    @ResponseStatus(OK)
-    public List<Product> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(){
 
         List<Product> listProducts = productService.listProducts();
-        return listProducts;
+        return new ResponseEntity<>(listProducts, OK);
     }
 
     @RequestMapping(method = POST)
     @ResponseStatus(CREATED)
-    public Product addProduct (@RequestBody Product product){
+    public ResponseEntity<Product> addProduct (@RequestBody Product product){
         if (product.getId()==null){
             productService.addProduct(product);
+            return new ResponseEntity<>(product, CREATED);
         }else{
             productService.updateProduct(product);
+            return new ResponseEntity<>(product, OK);
         }
-        return product;
     }
 
     @RequestMapping(value = "/{id}", method = PUT)
-    @ResponseStatus(OK)
-    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        productService.getProductById(id);
+    public ResponseEntity<String> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        Product pro = productService.getProductById(id);
+        if (product.getId() == null){
+            return new ResponseEntity<>("The product with id "+ product.getId()+ " doesn't exists", NOT_FOUND);
+        }
         productService.updateProduct(product);
-        return product;
+        return new ResponseEntity<>("Product with id "+ product.getId()+ " was updated", OK);
+
     }
 
 
     @RequestMapping(value = "/{id}", method = DELETE)
-    @ResponseStatus(OK)
     public ResponseEntity<String> removeProduct(@PathVariable("id") Long id){
         try {
             productService.removeProduct(id);
@@ -66,7 +70,6 @@ public class ProductRestController {
 
 
     @RequestMapping(value = "/search", method = POST)
-    @ResponseStatus(OK)
     public List<Product> findByName(@RequestBody ParamRequest request){
         if (request.getType().equals(ParamRequest.SearchType.PR)) {
             if(request.getSearchParam().length() == 0) {
@@ -77,6 +80,8 @@ public class ProductRestController {
 
         return productService.findByCategory(request.getSearchParam());
     }
+
+
 
 }
 

@@ -39,7 +39,7 @@ public class User {
 
     // if delete a user, delete the cart associated
     @JsonManagedReference(value = "cart-user")
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     private Cart cart;
 
     //Constructors

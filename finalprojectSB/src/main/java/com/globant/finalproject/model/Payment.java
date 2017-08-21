@@ -1,9 +1,11 @@
 package com.globant.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table (name = "payment")
@@ -16,15 +18,19 @@ public class Payment {
     @Column(name = "payment_id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
+    @JsonBackReference(value = "cart-payment")
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Cart cart;
 
     @Column (name = "payment_type", nullable = false)
     private String paymentType;
 
-    @Column (name = "amount")
-    private double amount;
+    @Column (name = "amount", columnDefinition = "Decimal(10,2) default '0.00'")
+    public double totalAmount;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "date", columnDefinition = "DATE", nullable = false)
+    private Date paymentDate = new Date();
 
     // Consutructors.
 
@@ -35,7 +41,7 @@ public class Payment {
     public Payment(Cart cart, String paymentType, double amount) {
         this.cart = cart;
         this.paymentType = paymentType;
-        this.amount = amount;
+        this.totalAmount = amount;
 
     }
 
@@ -66,12 +72,20 @@ public class Payment {
         this.paymentType = paymentType;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     @Override
@@ -80,7 +94,8 @@ public class Payment {
                 "id=" + id +
                 ", cart_id=" + cart.getId() +
                 ", paymentType='" + paymentType + '\'' +
-                ", amount=" + amount +
+                ", totalAmount=" + totalAmount +
+                ", date=" + paymentDate +
                 '}';
     }
 }

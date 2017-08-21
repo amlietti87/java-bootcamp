@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.REMOVE;
+
 @Entity
 @Table(name = "shop")
 public class Shop {
@@ -14,17 +16,17 @@ public class Shop {
     @Column(name = "shop_id")
     private Long id;
 
-    @Column(name = "shop_quantity")
+    @Column(name = "shop_quantity", columnDefinition = "INT default '0'")
     public int shopQuantity;
 
     @JsonBackReference(value="shop-product")
-    @ManyToOne
+    @OneToOne(cascade = REMOVE)
     @JoinColumn(name = "Product_id", nullable = false)
     private Product product;
 
     @JsonBackReference(value="cart-shops")
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
     //Contructors

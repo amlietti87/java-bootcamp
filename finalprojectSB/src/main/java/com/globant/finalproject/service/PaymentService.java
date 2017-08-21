@@ -8,11 +8,8 @@ public interface PaymentService {
 
     List<Payment> listPayments();
 
-    void addPayment (final Payment payment);
+    Payment getPaymentById(Long id);
 
-    void updatePayment (final Payment payment);
+    Payment getPaymentByCartId(Long idCart);
 
-    void removePayment (final Long id);
-
-    Payment getById (final Long id);
 }

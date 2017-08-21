@@ -13,8 +13,8 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    @Column(name = "category_name")
-    public String categoryName;
+    @Column(name = "category_name", unique = true, nullable = false)
+    private String categoryName;
 
 
     // Constructors

@@ -14,7 +14,7 @@ public interface CategoryService {
 
     void removeCategory (final Long id);
 
-    Category getById (final Long id);
+    Category getCategoryById (final Long id);
 
     List<Category> findByCategoryName (final String categoryName);
 }

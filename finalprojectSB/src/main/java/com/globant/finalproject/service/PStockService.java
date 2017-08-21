@@ -13,5 +13,7 @@ public interface PStockService {
 
     void removeStock (final Long id);
 
-    PStock getById(final Long id);
+    PStock getPStockById(final Long id);
+
+    PStock findPStockByProductId(final Long productId);
 }

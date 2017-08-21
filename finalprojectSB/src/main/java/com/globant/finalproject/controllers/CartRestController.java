@@ -4,16 +4,15 @@ package com.globant.finalproject.controllers;
 import com.globant.finalproject.model.Cart;
 import com.globant.finalproject.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -41,8 +40,7 @@ public class CartRestController {
 
     @RequestMapping(method = PUT)
     public ResponseEntity<String> updateCart(@RequestBody Cart cart){
-        Cart c = cartService.getCartById(cart.getId());
-        if (c == null) {
+        if (cart.getId() == null) {
             return new ResponseEntity<>("There is no cart with id: " + cart.getId(), BAD_REQUEST);
         }
         cartService.updateCart(cart);

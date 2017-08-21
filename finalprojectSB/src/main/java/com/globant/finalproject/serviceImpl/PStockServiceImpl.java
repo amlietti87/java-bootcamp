@@ -35,7 +35,12 @@ public class PStockServiceImpl implements PStockService {
     }
 
     @Override
-    public PStock getById(Long id) {
-        return pStockRepository.getOne(id);
+    public PStock getPStockById(Long id) {
+        return pStockRepository.findOne(id);
+    }
+
+    @Override
+    public PStock findPStockByProductId(Long productId) {
+        return pStockRepository.findPStockByProductId(productId);
     }
 }

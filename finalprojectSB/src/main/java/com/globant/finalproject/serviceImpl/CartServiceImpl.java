@@ -36,6 +36,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCartById(Long id) {
-        return cartRepository.getOne(id);
+        return cartRepository.findOne(id);
     }
 }

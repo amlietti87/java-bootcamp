@@ -28,12 +28,6 @@ public class PayPalPaymentMethodImpl implements PaymentMethodService {
 //        this.pass = pass;
 //    }
 
-//    @Override
-//    public void payCart(Cart cart) {
-//        System.out.println("Payment using Paypal successful. Total amount: " + cart.getTotal()
-//                + ", amount with discount: " + (cart.getTotal() - calculateDiscount(cart)));
-//    }
-
     @Override
     public Payment payCart(String paymentMethod, Long cartId, double amount) {
 
@@ -45,7 +39,7 @@ public class PayPalPaymentMethodImpl implements PaymentMethodService {
 
         DecimalFormat df = new DecimalFormat("00.00");
         // Execute payment
-        cart.setPaid(1);
+        cart.setCartPaid(true);
         Payment payment = new Payment(cart,paymentMethod,amount);
         paymentRepository.save(payment);
         cartRepository.save(cart);

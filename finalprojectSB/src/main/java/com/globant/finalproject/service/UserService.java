@@ -8,15 +8,17 @@ public interface UserService {
 
     List<User> listUsers();
 
-    void addUser (final User user);
+    void addUser ( User user);
 
-    void updateUser (final User user);
+    void updateUser ( User user);
 
-    void removeUser (final Long id);
+    void removeUser ( Long id);
 
-    User getUserById (final Long id);
+    User getUserById ( Long id);
 
-    List<User> findByUserName(final String userName);
+    User findUserByUserEmail( String userEmail);
 
-    List<User> findByUserLastname(final String userLastname);
+    User findUserByUserDni( String userDni);
+
+
 }
