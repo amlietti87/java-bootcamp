@@ -44,7 +44,7 @@ public class PStockRestController {
     }
 
 
-    @RequestMapping(value = "{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     public ResponseEntity<String> updatePStock(@PathVariable("id") Long id, @RequestBody PStock pStock){
         PStock stock = pStockService.getPStockById(id);
         if (stock == null){
@@ -55,7 +55,7 @@ public class PStockRestController {
     }
 
 
-    @RequestMapping(value = "{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     public ResponseEntity<String> removePStock(@PathVariable("id") Long id){
         try {
             pStockService.removeStock(id);

@@ -63,7 +63,7 @@ public class ShopRestController {
        return new ResponseEntity<>(shop, NOT_ACCEPTABLE);
     }
 
-    @RequestMapping(value = "{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     public ResponseEntity<String> updateShop(@PathVariable("id") Long id, @RequestBody Shop shop){
         Shop shopping = shopService.getShopById(id);
         if (shopping == null){
@@ -74,7 +74,7 @@ public class ShopRestController {
     }
 
 
-    @RequestMapping(value = "{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     @ResponseStatus(OK)
     public ResponseEntity<String> removeShop(@PathVariable("id") Long id){
         try {

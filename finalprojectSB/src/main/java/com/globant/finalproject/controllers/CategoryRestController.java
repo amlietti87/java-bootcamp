@@ -47,7 +47,7 @@ public class CategoryRestController {
     }
 
 
-    @RequestMapping(value = "{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = PUT)
     public ResponseEntity<String> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
         Category cat = categoryService.getCategoryById(id);
         if (cat == null){
@@ -59,7 +59,7 @@ public class CategoryRestController {
     }
 
 
-    @RequestMapping(value = "{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     public ResponseEntity <String> removeCategory(@PathVariable("id") Long id){
         try {
             categoryService.getCategoryById(id);
